@@ -15,7 +15,7 @@ RUN gradle dependencies --no-daemon || true
 
 # 전체 소스 복사 후 JAR 빌드 (테스트는 CI/CD에서 별도 실행하므로 스킵)
 COPY src ./src
-RUN gradle bootJar --no-daemon -x test
+# RUN gradle bootJar --no-daemon -x test
 
 # ── Stage 2: 실행 ────────────────────────────────────────────
 # JRE만 포함된 경량 Alpine 이미지 사용 (JDK 불필요)
