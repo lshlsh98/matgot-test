@@ -3,6 +3,7 @@ package com.twotwo.matmatgotgot.domain.member.service;
 import com.twotwo.matmatgotgot.domain.member.dto.response.MemberResponse;
 import com.twotwo.matmatgotgot.domain.member.entity.LoginMember;
 import com.twotwo.matmatgotgot.domain.member.entity.Member;
+import com.twotwo.matmatgotgot.domain.member.entity.Natives;
 import com.twotwo.matmatgotgot.domain.member.mapper.MemberMapper;
 import com.twotwo.matmatgotgot.domain.restaurant.entity.Coords;
 import com.twotwo.matmatgotgot.security.JwtTokenProvider;
@@ -189,5 +190,10 @@ public class MemberService {
     public int updateEmail(Member member) {
         int result = memberMapper.updateEmail(member);
         return result;
+    }
+
+    public Natives getNative(String memberId) {
+        Natives nativeInfo = memberMapper.getNative(memberId);
+        return null;
     }
 }

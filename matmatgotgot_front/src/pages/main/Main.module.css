@@ -1,28 +1,25 @@
+@font-face {
+  font-family: "TtangsBudaeJjigae";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/TTTtangsbudaejjigaeL.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
 .main {
   width: 100%;
   min-height: 100vh;
   margin: 0;
   padding: 0;
-}
-
-.mainTripImg {
-  width: 100%;
-  height: calc(100vh - 20px);
-  position: fixed;
-}
-
-.mainTripImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  background-color: #f8f9fa;
 }
 
 .mainFoodImg {
   width: 100%;
   height: calc(100vh - 70px);
   position: relative;
+  z-index: 20;
+  background-color: #1c1c1e;
 }
 
 .mainFoodImg img {
@@ -38,105 +35,257 @@
   width: 100%;
   height: 100%;
   top: 0;
-  background-color: color-mix(in srgb, var(--text1) 70%, transparent);
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 30, 0.4) 0%,
+    rgba(28, 28, 30, 0.75) 100%
+  );
 }
 
-.mainFoodImg h1 {
+.foodTitleWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--bg);
-  margin: 0;
-  font-size: 4.8em;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+}
+
+.mainFoodImg h1 {
+  margin: 0 0 16px 0;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.foodTitleWrapper p {
+  font-size: 1.25rem;
+  opacity: 0.85;
+  margin: 0 0 40px 0;
+}
+
+.scrollNotice {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+.mainTripImg {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.mainTripImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.tripTextDev {
+  position: fixed;
+  top: 48.7vh;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-4.7deg);
+  z-index: 5;
+  text-align: center;
+  width: auto;
+  pointer-events: none;
+}
+
+.emptyLogoSpace {
+  height: 40px;
+}
+
+.tripTextDev .tripText2 {
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  font-size: 2.65rem;
+  font-weight: 900;
+  font-family: "TtangsBudaeJjigae";
+  color: var(--text1);
+  letter-spacing: -1.5px;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.12),
+    -1px -1px 0px rgba(255, 255, 255, 0.4);
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.mainTripDev {
+  width: 100%;
+  height: 90vh;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .descContainer {
   width: 100%;
-  background-color: var(--bg);
+  background-color: #fff;
   position: relative;
-  z-index: 10;
+  z-index: 30;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .desc {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  width: 1200px;
+  gap: 30px;
+  width: 1140px;
+  max-width: 90%;
   margin: auto;
-  padding: 40px 20px;
+  padding: 100px 0;
 }
 
 .desc > div {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .desc .descRight {
-  margin-top: 100px;
+  margin-top: 60px;
 }
 
 .desc .descTitle {
   display: flex;
-  gap: 6px;
+  gap: 10px;
   align-items: center;
-  align-content: center;
 }
 
 .desc .descTitle .titleEmoji {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-}
-
-.desc .descTitle .titleEmoji svg {
-  transform: scale(1.5);
+  width: 42px;
+  height: 42px;
+  background-color: var(--primary, #ffd95a);
+  border-radius: 50%;
+  color: #1c1c1e;
 }
 
 .desc .descTitle .titleText {
-  font-size: 1.7em;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1c1c1e;
 }
 
 .desc .descContent {
   width: 100%;
-  background-color: var(--gray8);
-  border: 1px solid color-mix(in srgb, var(--text1) 25%, transparent);
-  min-height: 400px;
-  border-radius: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #e5e5ea;
+  padding: 35px;
+  min-height: 200px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
-.mainTripDev {
-  width: 100%;
-  height: 100vh;
+.desc .descContent:hover {
+  border-color: var(--primary, #ffd95a);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
-.tripTextDev {
-  position: fixed;
-  top: 46.7vh;
-  left: 39.5vw;
-  transform: rotate(-4.4deg);
+.desc .descContent h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #2c2c2e;
 }
 
-.tripTextDev .tripText1 {
-  font-size: 4.4em;
-  font-weight: 900;
-}
-
-.tripTextDev .tripText2 {
-  font-size: 2.4em;
-  font-weight: bold;
+.desc .descContent p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #666;
 }
 
 .mainReviewDev {
-  background-color: var(--bg);
+  background-color: #fff;
   width: 100%;
   position: relative;
-  padding: 20px 0;
+  z-index: 30;
+  padding: 80px 0 120px 0;
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 80px;
+}
+
+.slideSection {
+  width: 1200px;
+  max-width: 92%;
+  margin: 0 auto;
+}
+
+.slideSection h2 {
+  font-size: 1.65rem !important;
+  font-weight: 800 !important;
+  color: #1c1c1e !important;
+  letter-spacing: -0.5px !important;
+  margin-bottom: 28px !important;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .descContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .desc .descRight {
+    margin-top: 0;
+  }
+  .descCard {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainFoodImg h1 {
+    font-size: 2.2rem;
+  }
+  .foodTitleWrapper p {
+    font-size: 1rem;
+  }
+  .tripTextDev {
+    top: 48vh;
+  }
+  .tripTextDev .tripText2 {
+    font-family: "TtangsBudaeJjigae";
+    font-size: 2rem;
+    letter-spacing: -1px;
+  }
+  .slideSection h2 {
+    font-size: 1.3rem !important;
+    margin-bottom: 20px !important;
+  }
 }

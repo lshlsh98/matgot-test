@@ -177,11 +177,57 @@
     align-items: center;
     justify-content: center;
 }
-.profile_submit {
-    flex-grow: 1;
+.info_nick > input {
+    width: 100px;
+    height: 25px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 15px;
+}
+.info_profile_addr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info_profile_addr > input {
+    width: 200px;
+    height: 25px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 15px;
+}
+.info_member > li:first-child > div {
+    display: flex;
+    gap: 5px;
+}
+.info_member > li:nth-child(2) > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info_member > li:first-child > div:last-child > button,
+.info_member > li:nth-child(2) > .native_submit {
     display: flex;
     justify-content: right;
     align-self: flex-end;
+    background-color: var(--text1);
+    color: #fff;
+    border: none;
+    padding: 3px 14px;
+    font-size: 12px;
+    font-weight: 500;;
+    outline: none;
+    text-decoration: none;
+    border-radius: 18px;
+    cursor: pointer;
+}
+.profile_submit {
+    position: absolute;
+    display: flex;
+    justify-content: right;
+    align-self: flex-end;
+    right: 15px;
+
 }
 .info_2line {
     display: flex;

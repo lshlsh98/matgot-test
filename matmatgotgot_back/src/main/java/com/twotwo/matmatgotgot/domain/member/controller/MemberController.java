@@ -7,6 +7,7 @@ import com.twotwo.matmatgotgot.domain.member.dto.MemberLoginDto;
 import com.twotwo.matmatgotgot.domain.member.dto.tokenDto;
 import com.twotwo.matmatgotgot.domain.member.entity.LoginMember;
 import com.twotwo.matmatgotgot.domain.member.entity.Member;
+import com.twotwo.matmatgotgot.domain.member.entity.Natives;
 import com.twotwo.matmatgotgot.domain.member.service.MemberService;
 import com.twotwo.matmatgotgot.domain.restaurant.entity.Coords;
 import com.twotwo.matmatgotgot.global.response.ApiResponse;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.annotation.Native;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.ZoneId;
@@ -447,6 +449,18 @@ public class MemberController {
 		}
 		return ResponseEntity.ok(null);
 	}
+
+	@GetMapping(value = "natives")
+	public ResponseEntity<?> getNative(@RequestParam("memberId") String memberId) {
+		System.out.println("=================================================");
+		System.out.println("👉 [백엔드] natives 컨트롤러 진입 성공! 들어온 ID: " + memberId);
+		System.out.println("=================================================");
+
+		Natives nativeInfo = memberService.getNative(memberId);
+		System.out.println("👉 [백엔드] 서비스에서 조회한 데이터 결과: " + nativeInfo);
+
+		return ResponseEntity.ok(nativeInfo);
+    }
 
 	@PostMapping(value="/email-verification")
 	public ResponseEntity<?> sendMail(@RequestBody Member member, Model model) throws MessagingException {

@@ -53,15 +53,3 @@
     justify-content: center;
     align-items: center;
 }
-.report_send {
-    color: #228be6;
-}
-.report_ing {
-    color: #f5ca00;
-}
-.report_err {
-    color: #c62828;
-}
-.report_finished {
-    color: #000;
-}

@@ -8,12 +8,12 @@
     flex-direction: column;
     gap: 5px;
 }
-.likeposts {
+.reports {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-.likepost {
+.report {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -23,33 +23,50 @@
     border-radius: 10px;
     cursor: pointer;
 }
-.likepost > div:first-child {
-    width: 10%;
+.report > div:first-child {
+    width: 5%;
 }
-.likepost > div:nth-child(2) {
-    width: 30%;
+.report > div:nth-child(2) {
+    width: 20%;
 }
-.likepost > div:nth-child(3) > ul {
-    width: 30%;
+.report > div:nth-child(3) > ul {
+    width: 50%;
     display: flex;
     gap: 8px;
     align-items: center;
 }
-.likepost > div:nth-child(3) > ul > li {
+.report > div:nth-child(3) > ul > li {
     display: flex;
     gap: 2px;
     align-items: center;
     justify-content: center;
 }
-.likepost > div:nth-child(3) > ul > li > img {
+.report > div:nth-child(3) > ul > li > img {
     width: 18px;
 }
-.likepost > div:nth-child(3) > ul > li:first-child {
+.report > div:nth-child(3) > ul > li:first-child {
     width: 18px;
 }
-.likepost > div:last-child {
-    width: 80%;
+.report > div:nth-child(4) {
+    width: 30%;
+    text-align: right;
+}
+.report > div:last-child {
+    width: 20%;
     display: flex;
     justify-content: flex-end;
     font-size: 13px;
+    font-weight: 800;
+}
+.report_send {
+    color: #228be6;
+}
+.report_ing {
+    color: #f5ca00;
+}
+.report_err {
+    color: #c62828;
+}
+.report_finished {
+    color: #000;
 }

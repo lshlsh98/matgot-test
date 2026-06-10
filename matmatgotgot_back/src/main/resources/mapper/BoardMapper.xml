@@ -197,7 +197,7 @@
 
         </where>
 
-        GROUP BY B.BOARD_NO <choose>
+        GROUP BY B.BOARD_NO, R.REPORT_STATUS <choose>
         <when test="request.order == 1">
             ORDER BY B.BOARD_NO DESC
         </when>

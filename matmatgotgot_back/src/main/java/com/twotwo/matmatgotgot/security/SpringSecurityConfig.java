@@ -44,7 +44,7 @@ public class SpringSecurityConfig {
                     // static 리소스나 에러 페이지 허용
                     .requestMatchers("/error", "/favicon.ico").permitAll()
                     .requestMatchers("/upload/**").permitAll()
-                    .requestMatchers("/members/**", "/login", "/members/pwMember","/members/memberno").permitAll()
+                    .requestMatchers("/members/**", "/login", "/members/pwMember","/members/memberno","/members/natives").permitAll()
                 .requestMatchers("/boards/**").permitAll()
                     // 에디터 이미지 접근 허용
                     .requestMatchers("/editor/**").permitAll()

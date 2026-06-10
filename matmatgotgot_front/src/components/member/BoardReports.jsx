@@ -18,7 +18,7 @@ const BoardItem = ({ board, no }) => {
     const navigate = useNavigate();
     return (
         <>
-            <div className={styles.likeposts} onClick={()=>navigate(`/board/view/${board.boardNo}`)}>
+            <div className={styles.reports} onClick={()=>navigate(`/board/view/${board.boardNo}`)}>
                 <div className={styles.report}>
                     <div>{no}</div>
                     <div>{board.boardTitle}</div>
@@ -30,7 +30,7 @@ const BoardItem = ({ board, no }) => {
                         </ul>
                     </div>
                     <div>{board.boardDate}</div>
-                    <div className={styles.report_send}>신고접수</div>
+                    {board.reportStatus === 0 ? <div className={styles.report_send}>처리대기</div> : board.reportStatus === 1 ? <div className={styles.report_finished}>처리완료</div> : board.reportStatus === 2 && <div className={styles.report_err}>반려</div> }
                 </div>
             </div>
         </>

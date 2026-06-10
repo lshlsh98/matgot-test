@@ -40,4 +40,7 @@
 	<update id="updateLocation">
 		update member_tbl set lat = #{coords.lat}, lng = #{coords.lng} where member_id = #{memberId}
 	</update>
+	<select id="getNative" resultType="natives">
+		select * from natives_tbl where member_id = #{memberId}
+	</select>
 </mapper>

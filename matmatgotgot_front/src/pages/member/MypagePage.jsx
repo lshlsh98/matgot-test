@@ -3,7 +3,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import {Link, useLocation, useParams} from "react-router-dom";
 import defaultImg from "../../assets/img/defaultImg.svg";
 import changeImg from "../../assets/img/changeImg.svg";
-import native from "../../assets/img/native.svg";
+import nativeicon from "../../assets/img/native.svg";
 import nativeIcon from "../../assets/img/nativeIcon.svg";
 import navigate from "../../assets/img/navigate.svg";
 import google from "../../assets/logo/google.svg";
@@ -32,6 +32,7 @@ import BoardList from "../../components/member/BoardList.jsx";
 import Swal from "sweetalert2";
 import BoardLikeList from "../../components/member/BoardLikeList.jsx";
 import BoardReports from "../../components/member/BoardReports.jsx";
+import {useKakaoPostcode} from "@clroot/react-kakao-postcode";
 
 export const MypagePage = () => {
    const location = useLocation();
@@ -117,7 +118,7 @@ export const MypagePage = () => {
                 </div>
             </div>
             <div className={styles.content_wrap}>
-                {path === "myinfo" && <Myinfo memberInfo={memberInfo} />}
+                {path === "myinfo" && <Myinfo memberInfo={memberInfo} setMemberInfo={setMemberInfo} />}
                 {path === "myreview" && <Myreview memberInfo={memberInfo} />}
                 {path === "zzim" && <Zzim memberInfo={memberInfo} />}
                 {path === "matzip" && <Matzip memberInfo={memberInfo} />}
@@ -133,12 +134,35 @@ export const MypagePage = () => {
   );
 };
 
-export const Myinfo = ({ memberInfo }) => {
+export const Myinfo = ({ memberInfo, setMemberInfo }) => {
     const inputRef = useRef(null);
+    const detailRef = useRef();
     const { memberId, memberThumb } = useAuthStore();
+    const [updateMode, setUpdateMode] = useState(false);
     const profileImgSrc = (memberThumb && memberThumb !== defaultImg)
         ? `${import.meta.env.VITE_BACKSERVER}/upload/${memberThumb}`
         : defaultImg;
+    const { open } = useKakaoPostcode({
+        onComplete: (data) => {
+            setMemberInfo((prev) => ({ ...prev, ["memberAddress"]: data.roadAddress }));
+            detailRef.current.focus();
+        },
+    });
+    const openPostcode = useKakaoPostcode({
+        onComplete: (data) => {
+            // 주소 선택이 완료되면 실행되는 블록
+            setMemberInfo((prev) => ({ ...prev, memberAddress: data.roadAddress }));
+
+            // 🌟 여기서 바로 비교 로직을 타는 것이 가장 안전합니다.
+            // (setState는 비동기라 memberInfo.memberAddress를 바로 비교하면 이전 값이 찍힐 수 있으므로 data.roadAddress와 직접 비교합니다.)
+            if (data.roadAddress === currentAddr) {
+                setNative(true);
+            }
+        } // 👈 onComplete 끝
+    }); // 👈 useKakaoPostcode 훅 설정 끝 (괄호 누락 해결!)
+    const updateModeChange = () => {
+        setUpdateMode((prev) => !prev);
+    };
     const changeThumb = () => {
         const file = inputRef.current.files && inputRef.current.files[0];
         if (!file) return;
@@ -159,6 +183,34 @@ export const Myinfo = ({ memberInfo }) => {
                 console.log(err);
             });
     };
+    const [nativeMember,setNativeMember]=useState([]);
+    useEffect(() => {
+        // 🌟 [안전장치] memberId가 없거나 'undefined' 문자열이면 아예 요청을 안 보냄!
+        if (!memberId || memberId === 'undefined') {
+            console.warn("memberId가 준비되지 않아 요청을 보낼 수 없습니다.");
+            return;
+        }
+
+        // 값이 존재할 때만 서버에 요청
+        axios.get(`${import.meta.env.VITE_BACKSERVER}/members/natives`, {
+                  params: {
+                    memberId: memberId
+                  }
+                })
+            .then(response => {
+                // 성공 시 처리할 로직 (예: setMemberData)
+                console.log("성공 데이터:", response.data);
+            })
+            .catch(error => {
+                console.error("서버 에러:", error);
+            });
+
+    }, [memberId]);
+    const [native,setNative]=useState(false);
+    const nativeCheck = () => {
+        // 카카오 우편번호 팝업창을 띄웁니다.
+        openPostcode();
+    };
 
     if (!memberInfo) {
         return <div style={{ padding: "50px", textAlign: "center" }}>회원 정보를 불러오는 중입니다...</div>;
@@ -174,22 +226,36 @@ export const Myinfo = ({ memberInfo }) => {
                     </div>
 
                     {/* 💡 [카메라 버튼] 원형 영역 바깥(image_wrap 안)에 위치시킵니다. */}
-                    <img src={changeImg} alt="변경" className={styles.changeImg} onClick={() => inputRef.current.click()}/>
-                    <input type="file" ref={inputRef} style={{ display: "none" }} onChange={changeThumb}/>
+                    {updateMode ? (
+                        <>
+                            <img
+                                src={changeImg}
+                                alt="변경"
+                                className={styles.changeImg}
+                                onClick={() => inputRef.current.click()}
+                            />
+                            <input
+                                type="file"
+                                ref={inputRef}
+                                style={{ display: "none" }}
+                                onChange={changeThumb}
+                            />
+                        </>
+                    ) : null}
                 </div>
                 <div>
                     <div>
-                        <div className={styles.info_nick}>{memberInfo.memberNickname}</div>
-                        <div><img src={native} alt="인증" /></div>
+                        <div className={styles.info_nick}>{updateMode ? <Input type="text" name="memberNickname" id="memberNickname" value={memberInfo.memberNickname} onChange={(e)=>setMemberInfo((prev)=>({...prev, [e.target.name]:e.target.value}))} /> : `${memberInfo.memberNickname}`}</div>
+                        <div><img src={nativeicon} alt="인증" /></div>
                     </div>
                     <ul className={styles.info_member}>
                         <li>
                             <img src={navigate} alt=""/>
-                            <div>{memberInfo.memberAddress}</div>
+                            <div className={styles.info_profile_addr}>{updateMode ? <> <Input ref={detailRef} type="text" name="memberAddress" id="memberAddress" value={memberInfo.memberAddress} onChange={(e)=>setMemberInfo((prev)=>({...prev, [e.target.name]:e.target.value}))} /> <button onClick={open}>변경</button> </> : `${memberInfo.memberAddress}`}</div>
                         </li>
                         <li>
                             <img src={nativeIcon} alt=""/>
-                            <div>현지인 인증됨</div>
+                            {updateMode? <><div>현지인 인증됨</div> <button className={styles.native_submit} onClick={nativeCheck}>인증</button></> : <div>현지인 인증됨</div>}
                         </li>
                         <li>
                             2026.06.04 ~ 2026.12.04
@@ -197,7 +263,7 @@ export const Myinfo = ({ memberInfo }) => {
                     </ul>
                 </div>
                 <div className={styles.profile_submit}>
-                    <button type="submit" className={styles.submit}>프로필 수정</button>
+                    <button type="submit" className={styles.submit} onClick={updateModeChange}>{updateMode?"프로필 수정 완료" : "프로필 수정"}</button>
                 </div>
             </div>
             <div className={styles.info_2line}>
@@ -553,7 +619,11 @@ export const Reportposts = ({memberInfo}) => {
                 {/*더미데이터*/}
             </div>
             <div>
-                <Pagination/>
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    totalPage={totalPage}
+                    naviSize={5}/>
             </div>
         </div>
     </>);};

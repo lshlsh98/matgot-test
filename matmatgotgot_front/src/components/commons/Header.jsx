@@ -2,7 +2,7 @@ import styles from "./Header.module.css";
 import { FiBell, FiMail, FiUser, FiSettings } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
-import logo from "../../assets/logo/맛맛곳곳로고_300x398.png";
+import logo from "../../assets/logo/black_only.png";
 
 export default function Header() {
   const location = useLocation();

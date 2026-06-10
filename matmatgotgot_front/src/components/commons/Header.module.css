@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "TtangsBudaeJjigae";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/TTTtangsbudaejjigaeL.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
 .header {
   width: 100%;
   background-color: var(--gray8);
@@ -36,7 +44,7 @@
 
 .logo a {
   display: flex;
-  gap: 8px;
+  gap: 3px;
   align-items: center;
 }
 
@@ -46,8 +54,11 @@
 }
 
 .logo .logoText {
-  font-size: 32px;
+  font-size: 28px;
   line-height: 1;
+  font-family: TtangsBudaeJjigae;
+  padding-top: 6.5px;
+  font-weight: 600;
 }
 
 .centerMenu {

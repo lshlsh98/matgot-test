@@ -244,7 +244,8 @@
         RR.DETAIL AS detail,
         RR.REPORT_STATUS AS reportStatus,
         DATE_FORMAT(RR.REPORT_DATE, '%Y.%m.%d') AS reportDate,
-        M.MEMBER_ID AS writer,
+        RM.MEMBER_ID AS reporter,
+        R.MEMBER_ID AS writer,
         (
         SELECT COUNT(*)
         FROM REST_REPORT_TBL RR2
@@ -252,7 +253,8 @@
         ) AS reportCount
         FROM REST_REPORT_TBL RR
         JOIN RESTAURANT_TBL R ON RR.REST_NO = R.REST_NO
-        JOIN MEMBER_TBL M ON RR.MEMBER_ID = M.MEMBER_ID
+        JOIN MEMBER_TBL RM ON RR.MEMBER_ID = RM.MEMBER_ID
+        JOIN MEMBER_TBL WM ON R.MEMBER_ID = WM.MEMBER_ID
         <include refid="restReportWhere"/>
 
         <choose>
@@ -310,7 +312,8 @@
         RRP.DETAIL AS detail,
         RRP.REPORT_STATUS AS reportStatus,
         DATE_FORMAT(RRP.CREATED_AT, '%Y.%m.%d') AS reportDate,
-        M.MEMBER_ID AS writer,
+        RRP.MEMBER_ID AS reporter,
+        RV.MEMBER_ID AS writer,
         (
         SELECT COUNT(*)
         FROM REVIEW_REPORT_TBL RRP2
@@ -319,7 +322,8 @@
         FROM REVIEW_REPORT_TBL RRP
         JOIN REVIEW_TBL RV ON RRP.REVIEW_NO = RV.REVIEW_NO
         JOIN RESTAURANT_TBL RT ON RV.REST_NO = RT.REST_NO
-        JOIN MEMBER_TBL M ON RRP.MEMBER_ID = M.MEMBER_ID
+        JOIN MEMBER_TBL RM ON RRP.MEMBER_ID = RM.MEMBER_ID
+        JOIN MEMBER_TBL WM ON RV.MEMBER_ID = WM.MEMBER_ID
         <include refid="reviewReportWhere"/>
 
         <choose>
@@ -377,7 +381,8 @@
         RCR.DETAIL AS detail,
         RCR.REPORT_STATUS AS reportStatus,
         DATE_FORMAT(RCR.CREATED_AT, '%Y.%m.%d') AS reportDate,
-        M.MEMBER_ID AS writer,
+        RCR.MEMBER_ID AS reporter,
+        RC.MEMBER_ID AS writer,
         (
         SELECT COUNT(*)
         FROM REVIEW_COMMENT_REPORT_TBL RCR2
@@ -387,7 +392,8 @@
         JOIN REVIEW_COMMENT_TBL RC ON RCR.COMMENT_NO = RC.COMMENT_NO
         JOIN REVIEW_TBL RV ON RC.REVIEW_NO = RV.REVIEW_NO
         JOIN RESTAURANT_TBL RT ON RV.REST_NO = RT.REST_NO
-        JOIN MEMBER_TBL M ON RCR.MEMBER_ID = M.MEMBER_ID
+        JOIN MEMBER_TBL RM ON RCR.MEMBER_ID = RM.MEMBER_ID
+        JOIN MEMBER_TBL WM ON RC.MEMBER_ID = WM.MEMBER_ID
         <include refid="reviewCommentReportWhere"/>
 
         <choose>
