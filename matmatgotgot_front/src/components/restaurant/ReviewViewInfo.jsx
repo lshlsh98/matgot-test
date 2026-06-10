@@ -38,10 +38,7 @@ const ReviewViewInfo = ({ review }) => {
             }`}
           >
             {review.memberThumb ? (
-              <img
-                src={`${imgBaseUrl}/matgot/member/${review.memberThumb}`}
-                alt="프로필 이미지"
-              />
+              <img src={`${review.memberThumb}`} alt="프로필 이미지" />
             ) : (
               ""
             )}
