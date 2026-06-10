@@ -82,7 +82,7 @@ services:
     build:
       context: ./matmatgotgot_front
       args:
-        VITE_BACKSERVER: ""
+        VITE_BACKSERVER: "/api"
         VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
         VITE_NAVER_MAP_KEY: ${VITE_NAVER_MAP_KEY}
     container_name: matgot-frontend

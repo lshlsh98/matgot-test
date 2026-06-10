@@ -53,7 +53,8 @@ const Main_login = () => {
           const wishRes = await axios.get(`${BACK_URL}/restaurants/my-wish`, {
             params: { memberId },
           });
-          const mappedWish = wishRes.data.map((item) => ({
+          const wishData = Array.isArray(wishRes.data) ? wishRes.data : [];
+          const mappedWish = wishData.map((item) => ({
             imgName: item.restThumb,
             title: item.restName,
             desc: item.restContent || "등록된 설명이 없습니다.",
@@ -65,7 +66,8 @@ const Main_login = () => {
         const tasteRes = await axios.get(
           `${BACK_URL}/restaurants/popular-list`,
         );
-        const mappedTaste = tasteRes.data.map((item) => ({
+        const tasteData = Array.isArray(tasteRes.data) ? tasteRes.data : [];
+        const mappedTaste = tasteData.map((item) => ({
           imgName: item.restThumb,
           title: item.restName,
           desc: item.restContent || "등록된 설명이 없습니다.",
@@ -74,7 +76,8 @@ const Main_login = () => {
         setTasteList(mappedTaste);
 
         const allRes = await axios.get(`${BACK_URL}/restaurants/all`);
-        const mappedAll = allRes.data.map((item) => ({
+        const allData = Array.isArray(allRes.data) ? allRes.data : [];
+        const mappedAll = allData.map((item) => ({
           imgName: item.restThumb,
           title: item.restName,
           desc: item.restContent || "등록된 설명이 없습니다.",

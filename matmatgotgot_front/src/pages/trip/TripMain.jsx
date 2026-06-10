@@ -42,7 +42,12 @@ const TripMain = () => {
           },
         );
 
-        const { myPlans, favoritePlans, top10Plans, allPlans } = response.data;
+        const {
+          myPlans = [],
+          favoritePlans = [],
+          top10Plans = [],
+          allPlans = [],
+        } = response.data ?? {};
 
         const defaultImg = "default_thumbnail.png";
         const mapDefaultImage = (list) =>

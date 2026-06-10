@@ -22,8 +22,8 @@ const Main = () => {
           axios.get(`${serverUrl}/main/best-tours`),
         ]);
 
-        setBestReviews(reviewRes.data);
-        setBestTours(tourRes.data);
+        setBestReviews(Array.isArray(reviewRes.data) ? reviewRes.data : []);
+        setBestTours(Array.isArray(tourRes.data) ? tourRes.data : []);
       } catch (error) {
         console.error("메인 슬라이드 데이터를 불러오는 중 오류 발생:", error);
       }
