@@ -61,6 +61,11 @@ services:
       # ===== NAVER =====
       NAVER_CLIENT_ID: ${NAVER_CLIENT_ID}
       NAVER_SECRET: ${NAVER_SECRET}
+      # MemberController가 요구하는 relaxed binding 변수명
+      NAVER_CLIENT_ID_K: ${NAVER_CLIENT_ID}
+      NAVER_CLIENT_ID_k: ${NAVER_CLIENT_ID}
+      NAVER_CLIENT_SECRET_K: ${NAVER_SECRET}
+      NAVER_CLIENT_SECRET_k: ${NAVER_SECRET}
 
       # ===== CLOVA =====
       CLOVA_SECRET_KEY: ${CLOVA_SECRET_KEY}
