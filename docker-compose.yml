@@ -72,6 +72,8 @@ services:
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
 
+    volumes:
+      - uploads-data:/app/uploads
     ports:
       - "8080:8080"
     networks:
@@ -99,6 +101,7 @@ services:
 # =====================
 volumes:
   mysql-data:
+  uploads-data:
 
 # =====================
 # Network
