@@ -222,11 +222,11 @@ export const Myinfo = ({ memberInfo, setMemberInfo }) => {
                 <div className={styles.image_wrap}>
                     {/* 💡 [이미지 원형 영역] 이 div에만 overflow: hidden을 줍니다. */}
                     <div className={styles.profile_img_circle}>
-                        <img src={`${review.memberThumb}`} className={styles.defaultImg} alt="프로필" />
+                        <img src={profileImgSrc} className={styles.defaultImg} alt="프로필" />
                     </div>
 
                     {/* 💡 [카메라 버튼] 원형 영역 바깥(image_wrap 안)에 위치시킵니다. */}
-
+                    
                             <img
                                 src={changeImg}
                                 alt="변경"
@@ -239,7 +239,6 @@ export const Myinfo = ({ memberInfo, setMemberInfo }) => {
                                 style={{ display: "none" }}
                                 onChange={changeThumb}
                             />
-                        </>
                 </div>
                 <div>
                     <div>
