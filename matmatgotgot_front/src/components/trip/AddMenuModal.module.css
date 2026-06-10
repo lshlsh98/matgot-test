@@ -1,0 +1,188 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: var(--header, var(--gray8));
+  border: 1px solid var(--gray6);
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--gray7);
+  padding-bottom: 12px;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text1);
+}
+
+.modalCloseBtn {
+  cursor: pointer;
+  color: var(--gray4);
+  transition: color 0.15s;
+}
+
+.modalCloseBtn:hover {
+  color: var(--gray2);
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray2);
+}
+
+.required {
+  color: #ef4444;
+}
+
+.optional {
+  font-size: 12px;
+  color: var(--gray4);
+  font-weight: normal;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gray5);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  background-color: var(--gray7);
+  color: var(--text1);
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+  border-color: var(--primary);
+}
+
+.imageUploadWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.imageUploadWrapper input[type="file"] {
+  display: none;
+}
+
+.fileSelectBtn {
+  background-color: var(--gray6);
+  color: var(--text1);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid var(--gray5);
+  transition: background-color 0.15s;
+}
+
+.fileSelectBtn:hover {
+  background-color: var(--gray5);
+}
+
+.previewContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--gray5);
+  background-color: var(--gray7);
+}
+
+.imgPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modalActionRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.cancelBtn {
+  background-color: var(--gray7);
+  color: var(--gray2);
+  border: 1px solid var(--gray6);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.cancelBtn:hover {
+  background-color: var(--gray6);
+}
+
+.saveBtn {
+  background: var(--primary);
+  color: var(--text1);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: opacity 0.15s;
+}
+
+.saveBtn:hover {
+  opacity: 0.9;
+}

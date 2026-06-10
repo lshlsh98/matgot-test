@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twotwo.matmatgotgot.domain.main.mapper.MainMapper">
+    <select id="findBestReviews" resultType="mainBestReviewDTO">
+        SELECT
+            b.BOARD_NO AS boardNo,
+            b.MEMBER_NO AS memberNo,
+            b.BOARD_CATEGORY AS boardCategory,
+            b.BOARD_TITLE AS boardTitle,
+            b.BOARD_THUMB AS boardThumb,
+            COUNT(l.BOARD_NO) AS likeCount
+        FROM BOARD_TBL b
+                 LEFT JOIN BOARD_LIKE_TBL l ON b.BOARD_NO = l.BOARD_NO
+        WHERE b.BOARD_CATEGORY = 1   AND b.BOARD_STATUS = 1     GROUP BY b.BOARD_NO
+        ORDER BY likeCount DESC, b.BOARD_DATE DESC
+            LIMIT 6
+    </select>
+
+    <select id="findBestTours" resultType="mainBestTourDTO">
+        SELECT
+            t.tplan_no AS tplanNo,
+            t.member_no AS memberNo,
+            t.tplan_title AS tplanTitle,
+            t.tplan_desc AS tplanDesc,
+            t.tplan_region AS tplanRegion,
+            t.tplan_like AS tplanLike,
+
+            /* 💡 첫 번째 날, 첫 번째 순서 식당의 가장 첫 번째 메뉴 이미지를 가져오는 서브쿼리 */
+            (
+                SELECT m.MENU_IMG
+                FROM TRAVEL_SCHEDULE_TBL s
+                         JOIN MENU_TBL m ON s.rest_no = m.REST_NO
+                WHERE s.tplan_no = t.tplan_no
+                  AND s.tsche_day_no = 1
+                  AND s.tsche_order_no = 1
+                ORDER BY m.MENU_NO ASC
+                LIMIT 1
+            ) AS menuImg
+
+        FROM TRAVEL_PLAN_TBL t
+        WHERE t.tplan_status = 1       ORDER BY t.tplan_like DESC, t.created_at DESC
+            LIMIT 6
+    </select>
+</mapper>

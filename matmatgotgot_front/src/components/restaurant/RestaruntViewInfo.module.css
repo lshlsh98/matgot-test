@@ -1,0 +1,216 @@
+.name_addr {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ========== info1: 상호명 + 메타 정보 ========== */
+.info1 {
+  margin-bottom: 16px;
+}
+
+/* 상호명 */
+.rest_name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text1);
+  margin-bottom: 8px;
+}
+
+/* 메타 정보 행: 좌측 그룹(주소·카테고리·태그) + 우측 그룹(평점·시간·전화) */
+.rest_meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── 좌측: 주소 / 카테고리 / 태그 ── */
+.meta_left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* 주소 텍스트 */
+.rest_addr {
+  font-size: 13px;
+  color: var(--gray3);
+}
+
+/* 카테고리 텍스트 */
+.rest_cat {
+  font-size: 13px;
+  color: var(--gray3);
+}
+
+/* 태그 컨테이너 */
+.tags {
+  display: flex;
+  gap: 5px;
+}
+
+/* 태그 pill 아이템 */
+.tag_item {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--gray7);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: var(--text1);
+}
+
+/* ── 우측: 평점 / 영업시간 / 전화번호 ── */
+.meta_right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 평점 (별 + 숫자) */
+.avg_rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text1);
+}
+
+/* 별 아이콘 — 노란색 */
+.stars {
+  color: var(--primary);
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+/* 영업시간 / 전화번호 공통 — 아이콘 + 텍스트 flex 정렬 */
+.hours,
+.phone {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--gray3);
+}
+
+/* MUI 아이콘 크기 조정 */
+.meta_icon {
+  font-size: 15px !important;
+  color: var(--gray4);
+}
+
+/* ========== info2: 본문 내용 박스 ========== */
+.info2 {
+  margin-bottom: 20px;
+}
+
+/* 본문 내용 컨테이너 — 테두리 박스 */
+.content {
+  min-height: 180px;
+  border: 1.5px solid var(--gray6);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--gray8);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text1);
+}
+
+/* 본문 안의 이미지가 넘치지 않도록 */
+.content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ========== info3: AI 총평 + 리뷰된 메뉴 / 지도 ========== */
+.info3 {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* 좌측: 메뉴 목록 + AI 총평 */
+.menu_ai_side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0; /* flex 자식 overflow 방지 */
+}
+
+/* 섹션 소제목 (리뷰된 메뉴 / ai 리뷰 총평) */
+.section_title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text1);
+}
+
+/* AI 총평 섹션 */
+.ai_section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 우측: 지도 */
+.map_side {
+  width: 500px;
+  flex-shrink: 0;
+}
+
+/* AI 총평 내용 박스 — 서버 데이터 수신 전 빈 박스 */
+.ai_content {
+  /* min-height: 80px;
+  border: 1.5px solid var(--gray6);
+  border-radius: 8px;
+  background-color: var(--gray8); */
+
+  min-height: 80px;
+  border: 1.5px solid var(--gray6);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--gray8);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text1);
+}
+
+/* 리뷰된 메뉴 섹션 wrapper */
+.reviewed_menu_section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 리뷰된 메뉴 pill 목록 */
+.reviewd_menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 메뉴 pill 아이템 — 노란색 배경으로 강조 */
+.menu_item {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--primary);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  color: var(--text1);
+  font-weight: 500;
+}
+
+/* 지도 div */
+.map_div {
+  width: 100%;
+  height: 280px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--gray6); /* 지도 로딩 전 fallback */
+}

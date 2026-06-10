@@ -1,0 +1,65 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+}
+.finding_wrap {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 400px;
+    min-height: 212px;
+    background-color: var(--gray8);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.25);
+}
+.finding{
+    display: flex;
+    background-color: var(--text1);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.finding > div:first-child, .finding > div:last-child {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    cursor: pointer;
+
+}
+.findingbase {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-weight: 800;
+    background-color: var(--gray8);
+}
+.findingselect {
+    background-color: var(--text1);
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.id_wrap, .pw_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 25px 100px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.submit {
+    margin: 5px 0;
+    width: 100%;
+    background-color: var(--text1);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+}

@@ -1,0 +1,143 @@
+# ============================================================
+# AWS EC2 + RDS + S3 배포용 docker-compose.yml
+#
+# [구성 요소]
+#   - matmatgotgot_back  : Spring Boot 백엔드 (EC2에서 실행)
+#   - matmatgotgot_front : React + Nginx 프론트엔드 (EC2에서 실행)
+#   ※ DB는 AWS RDS(MySQL)를 사용하므로 별도 컨테이너 없음
+#   ※ 파일 업로드는 AWS S3를 사용
+#
+# [사용 방법]
+#   1. 루트 디렉터리에 .env 파일 생성 (.env.example 참고)
+#   2. docker-compose up --build -d
+#
+# [포트 구성]
+#   - 80   : 프론트엔드 (Nginx)
+#   - 8080 : 백엔드 API (Spring Boot)
+# ============================================================
+
+version: "3.8"
+
+services:
+
+  # =========================================================
+  # [백엔드] Spring Boot API 서버
+  # - AWS RDS(MySQL)에 JDBC로 연결
+  # - AWS S3에 파일 업로드
+  # - JWT 인증, OAuth2(Google/Naver), CLOVA OCR 등 처리
+  # =========================================================
+  matmatgotgot_back:
+    build:
+      context: ./matmatgotgot_back   # Dockerfile 위치
+      dockerfile: Dockerfile
+    container_name: matgot-backend
+    restart: always                   # 컨테이너가 꺼지면 자동 재시작
+
+    environment:
+      # ── Spring 프로파일 ──────────────────────────────────
+      SPRING_PROFILES_ACTIVE: prod    # application-prod.properties 활성화
+
+      # ── 서버 포트 ─────────────────────────────────────────
+      SERVER_PORT: 8080
+
+      # ── RDS(MySQL) 접속 정보 ──────────────────────────────
+      # DB_HOST : RDS 엔드포인트 (예: xxx.ap-northeast-2.rds.amazonaws.com)
+      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_HOST}:${DB_PORT:-3306}/${DB_NAME}?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=true&requireSSL=false
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+      # ── MyBatis 설정 ──────────────────────────────────────
+      MYBATIS_CONFIGURATION_MAP_UNDERSCORE_TO_CAMEL_CASE: "true"
+      MYBATIS_MAPPER_LOCATIONS: classpath:mapper/**/*.xml
+      MYBATIS_TYPE_ALIASES_PACKAGE: com.twotwo.matmatgotgot
+
+      # ── JWT 설정 ──────────────────────────────────────────
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}   # 기본값 24시간(ms)
+
+      # ── AWS S3 설정 ───────────────────────────────────────
+      # EC2 IAM Role을 사용하면 ACCESS_KEY/SECRET_KEY 없이도 동작
+      CLOUD_AWS_CREDENTIALS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+      CLOUD_AWS_CREDENTIALS_SECRET_KEY: ${AWS_SECRET_KEY}
+      CLOUD_AWS_REGION_STATIC: ${AWS_REGION:-ap-northeast-2}
+      CLOUD_AWS_S3_BUCKET: ${S3_BUCKET}
+      # EC2 메타데이터 자동 감지 비활성화 (로컬 환경에서 타임아웃 방지)
+      CLOUD_AWS_STACK_AUTO: "false"
+
+      # ── 이메일(SMTP) 설정 ─────────────────────────────────
+      SPRING_MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      SPRING_MAIL_PORT: ${MAIL_PORT:-587}
+      SPRING_MAIL_USERNAME: ${MAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${MAIL_PASSWORD}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+
+      # ── 파일 업로드 크기 제한 ─────────────────────────────
+      SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE: ${MAX_FILE_SIZE:-10MB}
+      SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE: ${MAX_REQUEST_SIZE:-50MB}
+
+      # ── Google OAuth2 ─────────────────────────────────────
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI}
+
+      # ── Naver OAuth / API ─────────────────────────────────
+      NAVER_CLIENT_ID_K: ${NAVER_CLIENT_ID_K}
+      NAVER_SECRET_K: ${NAVER_SECRET_K}
+      NAVER_CLIENT_ID: ${NAVER_CLIENT_ID}
+      NAVER_SECRET: ${NAVER_SECRET}
+
+      # ── CLOVA OCR (영수증 인식) ───────────────────────────
+      CLOVA_OCR_SECRET_KEY: ${CLOVA_OCR_SECRET_KEY}
+      CLOVA_OCR_API_URL: ${CLOVA_OCR_API_URL}
+
+    ports:
+      - "8080:8080"   # 호스트:컨테이너 (EC2 보안 그룹에서 8080 허용 필요)
+
+    networks:
+      - matgot-network
+
+    # 헬스 체크: /actuator/health 엔드포인트가 응답할 때까지 대기
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s   # Spring Boot 초기 구동 시간 여유 확보
+
+  # =========================================================
+  # [프론트엔드] React(Vite 빌드) + Nginx
+  # - /api/* 요청은 백엔드(8080)로 프록시
+  # - 나머지 요청은 React SPA(index.html)로 라우팅
+  # =========================================================
+  matmatgotgot_front:
+    build:
+      context: ./matmatgotgot_front
+      dockerfile: Dockerfile
+      args:
+        # Vite 빌드 시점에 환경변수를 번들에 포함 (런타임이 아닌 빌드타임에 결정됨)
+        VITE_BACKSERVER: ${VITE_BACKSERVER}           # 백엔드 API URL (예: http://EC2_IP:8080)
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
+        VITE_NAVER_MAP_KEY: ${VITE_NAVER_MAP_KEY}
+    container_name: matgot-frontend
+    restart: always
+
+    ports:
+      - "80:80"     # HTTP (EC2 보안 그룹에서 80 허용 필요)
+      # - "443:443" # HTTPS 사용 시 활성화 (SSL 인증서 설정 필요)
+
+    depends_on:
+      matmatgotgot_back:
+        condition: service_healthy   # 백엔드가 정상 기동된 후 프론트 시작
+
+    networks:
+      - matgot-network
+
+# ============================================================
+# 네트워크: 두 서비스가 내부 DNS로 서로를 참조할 수 있도록 설정
+# (예: 백엔드 컨테이너에서 "matmatgotgot_front" 이름으로 접근 가능)
+# ============================================================
+networks:
+  matgot-network:
+    driver: bridge

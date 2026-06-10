@@ -1,0 +1,207 @@
+.tripMainWrap {
+  width: 1160px;
+  margin: 30px auto 50px;
+}
+
+.tripMainWrap > div {
+  margin-bottom: 35px;
+}
+
+.tripMainWrap .topSection {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.tripMainWrap .topSection .leftSection {
+  width: 52%;
+}
+
+.leftSection .myCourseSection {
+  margin-bottom: 24px;
+}
+
+.leftSection .myCourseContent {
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tripMainWrap .mapSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tripMainWrap .mapSection .mapTitle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 35px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  gap: 12px;
+}
+
+.tripMainWrap .mapSection .mapTitle > div {
+  font-weight: 600;
+}
+
+.tripMainWrap .mapSection .mapTitle > div:not(.mapTitleDivider) {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.tripMainWrap .mapSection .mapTitle .nonActiveMapTitle {
+  color: color-mix(in srgb, var(--text1) 30%, transparent);
+}
+
+.tripMainWrap .mapSection .mapContainer {
+  flex: 1;
+  min-height: 440px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.tripMainWrap .mapSection .map {
+  width: 100%;
+  height: 100% !important;
+  border-radius: 19px;
+  flex: 1;
+}
+
+.myListContent,
+.tasteRestaurantContent {
+  padding: 20px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.emptyListText {
+  width: 100%;
+  text-align: center;
+  padding: 50px 20px;
+  color: color-mix(in srgb, var(--text1) 40%, transparent);
+  font-size: 14px;
+}
+
+.howAboutHereSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.howAboutHereContent {
+  position: relative;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.howAboutHereContent.isCollapsed {
+  max-height: 840px;
+  overflow: hidden;
+}
+
+.howAboutHereList {
+  display: grid;
+  grid-template-columns: repeat(4, 245px);
+  justify-content: space-between;
+  row-gap: 35px;
+  padding: 40px 30px 100px;
+}
+
+.fadeOverlayBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent 0%, var(--gray8) 85%);
+  pointer-events: none;
+  z-index: 5;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.buttonContainer {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.moreButton {
+  background-color: var(--primary);
+  color: var(--gray8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 36px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 35%, transparent);
+  transition: all 0.25s ease;
+}
+
+.moreButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 45%, transparent);
+  filter: brightness(1.08);
+}
+
+.moreButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.arrowIcon {
+  font-size: 11px;
+  transition: transform 0.2s ease;
+}
+
+.tripMainWrap .title {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  margin-bottom: 10px;
+  gap: 6px;
+}
+
+.tripMainWrap .title .titleIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.tripMainWrap .title .titleIcon svg {
+  font-size: 22px;
+}
+
+.tripMainWrap .title .titleIcon svg path {
+  fill: var(--text1);
+}
+
+.tripMainWrap .title .titleText {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text1);
+}
+
+.tripMainWrap .myCourseContent,
+.tripMainWrap .myListContent,
+.tripMainWrap .mapContainer,
+.tripMainWrap .tasteRestaurantContent,
+.tripMainWrap .howAboutHereContent {
+  background-color: var(--gray8);
+  border: 1px solid color-mix(in srgb, var(--text1) 12%, transparent);
+  border-radius: 20px;
+}

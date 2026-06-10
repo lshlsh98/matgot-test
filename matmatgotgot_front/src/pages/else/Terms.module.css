@@ -1,0 +1,169 @@
+.termsWrapper {
+  width: 100%;
+  background-color: #f9f9fb;
+  padding: 60px 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 1100px;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.titleIcon {
+  color: var(--primary, #ffd95a);
+  margin-bottom: 10px;
+}
+
+.header h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1c1c1e;
+  margin: 0 0 12px 0;
+}
+
+.header p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 15px 0;
+}
+
+.lastUpdated {
+  font-size: 13px;
+  color: #aeaea3;
+  background-color: #eee;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.contentLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.sidebar {
+  width: 240px;
+  position: sticky;
+  top: 100px;
+  background-color: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e5ea;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 12px 15px;
+  font-size: 14px;
+  color: #666;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 5px;
+}
+
+.sidebar li:hover {
+  background-color: #f2f2f7;
+  color: #1c1c1e;
+}
+
+.activeNav {
+  background-color: var(--primary, #ffd95a) !important;
+  color: #1c1c1e !important;
+  font-weight: 700;
+}
+
+.mainContent {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e5ea;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.termSection {
+  margin-bottom: 45px;
+}
+
+.termSection h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1c1c1e;
+  border-bottom: 2px solid #f2f2f7;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.termSection p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444;
+  margin: 0;
+}
+
+.subContent {
+  padding-left: 10px;
+}
+
+.subContent p {
+  margin-bottom: 10px;
+}
+
+.subContent ul {
+  padding-left: 20px;
+  margin-top: 10px;
+  color: #666;
+}
+
+.subContent li {
+  margin-bottom: 8px;
+  font-size: 14.5px;
+}
+
+.finalNote {
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px dashed #e5e5ea;
+  font-style: italic;
+  color: #8e8e93;
+  font-size: 14px;
+}
+
+@media (max-width: 992px) {
+  .contentLayout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sidebar li {
+    margin-bottom: 0;
+    flex: 1 1 45%;
+  }
+  .mainContent {
+    padding: 30px;
+  }
+}

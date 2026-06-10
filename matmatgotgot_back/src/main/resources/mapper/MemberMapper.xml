@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.twotwo.matmatgotgot.domain.member.mapper.MemberMapper">
+	<select id="selectAll" resultType="member">
+		select * from MEMBER_TBL
+	</select>
+	<insert id="insertMember">
+		insert into MEMBER_TBL (member_id,member_pw,member_name,member_email,member_nickname,member_address,ad_content) value (#{memberId},#{memberPw},#{memberName},#{memberEmail},#{memberNickname},#{memberAddress},#{adContent})
+	</insert>
+	<select id="selectOneMember" resultType="member">
+		select * from MEMBER_TBL where member_id = #{memberId}
+	</select>
+	<update id="updateEmail">
+		update member_tbl set member_email = #{newMemberEmail} where member_id = #{memberId}
+	</update>
+	<update id="updateThumbnail">
+		update member_tbl set member_thumb = #{memberThumb} where member_id = #{memberId}
+	</update>
+	<update id="updateMemberPw">
+		update member_tbl set member_pw = #{encPw} where member_id = #{memberId}
+	</update>
+	<select id="selectOneMemberByEmail" resultType="member">
+		select * from MEMBER_TBL where member_email = #{email}
+	</select>
+	<insert id="googleInsertMember">
+		insert into social_login_tbl (social_google) value (CURRENT_TIMESTAMP)
+	</insert>
+	<insert id="kakaoInsertMember">
+		insert into social_login_tbl (social_kakao) value (CURRENT_TIMESTAMP)
+	</insert>
+	<insert id="naverInsertMember">
+		insert into social_login_tbl (social_naver) value (CURRENT_TIMESTAMP)
+	</insert>
+	<insert id="logoutLog">
+		insert into LOGIN_LOG_TBL (member_no, login_status) value (#{memberNo}, 0)
+	</insert>
+	<insert id="loginLog">
+		insert into LOGIN_LOG_TBL (member_no, login_status) value (#{memberNo}, 1)
+	</insert>
+	<update id="updateLocation">
+		update member_tbl set lat = #{coords.lat}, lng = #{coords.lng} where member_id = #{memberId}
+	</update>
+</mapper>

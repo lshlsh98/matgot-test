@@ -1,0 +1,154 @@
+/* ========== 에디터 전체 컨테이너 ========== */
+/* border + overflow:hidden 으로 메뉴바·편집영역이 함께 둥글게 처리됨 */
+.editor_wrap {
+  border: 1.5px solid var(--gray5);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--gray8);
+  transition: border-color 0.15s ease;
+}
+
+/* 편집 영역 포커스 시 테두리 강조 */
+.editor_wrap:focus-within {
+  border-color: var(--gray3);
+}
+
+/* ========== 툴바 (메뉴 바) ========== */
+.menu_bar {
+  display: flex;
+  flex-wrap: wrap; /* 화면이 좁을 때 버튼이 줄바꿈 */
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  background-color: var(--gray7);
+  border-bottom: 1.5px solid var(--gray6);
+}
+
+/* ========== 메뉴 버튼 공통 ========== */
+.menu_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--gray2);
+  font-family: inherit;
+  font-size: 12px; /* H1 / H2 텍스트 버튼용 */
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.12s ease,
+    color 0.12s ease;
+}
+
+/* hover: 연한 회색 배경 */
+.menu_btn:hover {
+  background-color: var(--gray6);
+  color: var(--text1);
+}
+
+/* 비활성화: 실행취소/다시실행에서 히스토리 없을 때 */
+.menu_btn:disabled {
+  color: var(--gray5);
+  cursor: default;
+}
+
+.menu_btn:disabled:hover {
+  background-color: transparent;
+}
+
+/* 활성 상태: 현재 서식이 적용된 버튼 — 노란색으로 강조 */
+.active {
+  background-color: var(--primary);
+  color: var(--text1);
+}
+
+.active:hover {
+  /* 활성 상태 hover: 살짝 진한 노란색 */
+  background-color: #f5ca00;
+}
+
+/* ========== 버튼 그룹 사이 구분선 ========== */
+/* aria-hidden="true" 로 스크린리더에서 무시됨 */
+.separator {
+  display: inline-block;
+  width: 1px;
+  height: 18px;
+  background-color: var(--gray5);
+  margin: 0 5px;
+  flex-shrink: 0;
+}
+
+/* ========== 편집 영역 ========== */
+.editor_content {
+  background-color: var(--gray8);
+}
+
+/* Tiptap이 생성하는 실제 편집 div (.ProseMirror)
+   :global() 로 CSS Modules 스코프 밖 클래스를 직접 스타일링 */
+.editor_content :global(.ProseMirror) {
+  min-height: 240px;
+  padding: 14px 16px;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text1);
+}
+
+/* 첫 번째 자식의 상단 여백 제거 */
+.editor_content :global(.ProseMirror > *:first-child) {
+  margin-top: 0;
+}
+
+/* ── 제목 스타일 ── */
+.editor_content :global(.ProseMirror h1) {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin: 14px 0 6px;
+  line-height: 1.3;
+}
+
+.editor_content :global(.ProseMirror h2) {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 12px 0 4px;
+  line-height: 1.3;
+}
+
+/* ── 단락 ── */
+.editor_content :global(.ProseMirror p) {
+  margin: 4px 0;
+}
+
+/* ── 목록 ── */
+.editor_content :global(.ProseMirror ul),
+.editor_content :global(.ProseMirror ol) {
+  padding-left: 20px;
+  margin: 6px 0;
+  /* ul/ol은 기본 list-style이 App.css에서 제거되므로 여기서 복원 */
+  list-style: revert;
+}
+
+/* ── 이미지 ── */
+.editor_content :global(.ProseMirror img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+/* ── 텍스트 정렬 (TextAlign 확장 적용 결과) ── */
+.editor_content :global(.ProseMirror [style*="text-align: left"]) {
+  text-align: left;
+}
+
+.editor_content :global(.ProseMirror [style*="text-align: center"]) {
+  text-align: center;
+}
+
+.editor_content :global(.ProseMirror [style*="text-align: right"]) {
+  text-align: right;
+}

@@ -1,0 +1,294 @@
+.inquiryWrapper {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 60px 0;
+  min-height: calc(100vh - 300px);
+  box-sizing: border-box;
+}
+
+.container {
+  width: 760px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1c1c1e;
+  margin: 0 0 10px 0;
+}
+
+.header p {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+}
+
+.infoBox {
+  background-color: #fff;
+  border: 1px solid #e5e5ea;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.infoIcon {
+  color: var(--primary, #ffd95a);
+  font-size: 28px !important;
+}
+
+.infoText h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #1c1c1e;
+}
+
+.infoText p {
+  font-size: 13px;
+  color: #555;
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.inquiryForm {
+  background-color: #fff;
+  border: 1px solid #e5e5ea;
+  border-radius: 12px;
+  padding: 35px 40px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.formGroup label {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1c1c1e;
+}
+
+.required {
+  color: #ff3b30;
+  margin-left: 2px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.charCounter {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+.selectInput,
+.textInput,
+.textareaInput {
+  width: 100%;
+  border: 1px solid #d1d1d6;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14.5px;
+  color: #1c1c1e;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.selectInput:focus,
+.textInput:focus,
+.textareaInput:focus {
+  border-color: var(--footer, #1c1c1e);
+}
+
+.textareaInput {
+  height: 220px;
+  resize: none;
+  line-height: 1.6;
+}
+
+.uploadZone {
+  border: 2px dashed #c7c7cc;
+  border-radius: 8px;
+  background-color: #fbfbfd;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.uploadZone:hover {
+  border-color: var(--primary, #ffd95a);
+  background-color: #fffef9;
+}
+
+.hiddenFileInput {
+  display: none;
+}
+
+.uploadPrompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.uploadIcon {
+  font-size: 40px !important;
+  color: #aeaea3;
+  margin-bottom: 10px;
+}
+
+.uploadPrompt p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3a3a3c;
+  margin: 0 0 4px 0;
+}
+
+.uploadPrompt span {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+.fileCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #e5e5ea;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.previewContainer {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #f2f2f7;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fileDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.fileName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1c1e;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileSize {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+.removeFileBtn {
+  background: none;
+  border: none;
+  color: #8e8e93;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.removeFileBtn:hover {
+  background-color: #f2f2f7;
+  color: #1c1c1e;
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 35px;
+}
+
+.cancelBtn,
+.submitBtn {
+  padding: 14px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn {
+  background-color: #fff;
+  border: 1px solid #d1d1d6;
+  color: #555;
+}
+
+.cancelBtn:hover {
+  background-color: #f2f2f7;
+}
+
+.submitBtn {
+  background-color: var(--footer, #1c1c1e);
+  border: none;
+  color: var(--bg, #fff);
+  flex: 1;
+  max-width: 240px;
+}
+
+.submitBtn:hover {
+  opacity: 0.9;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 16px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .inquiryForm {
+    padding: 20px;
+  }
+  .btnGroup {
+    flex-direction: column;
+  }
+  .cancelBtn,
+  .submitBtn {
+    width: 100%;
+    max-width: none;
+  }
+  .submitBtn {
+    order: -1;
+  }
+}

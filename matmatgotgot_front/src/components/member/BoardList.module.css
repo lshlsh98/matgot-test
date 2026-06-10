@@ -1,0 +1,67 @@
+.board_list_wrap > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.board_list_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.mypost {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 10px 18px;
+    border: 1px solid var(--text1);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.mypost > div:first-child {
+    width: 10%;
+}
+.mypost > div:nth-child(2) {
+    width: 30%;
+}
+.mypost > div:nth-child(3) > ul {
+    width: 30%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.mypost > div:nth-child(3) > ul > li {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+}
+.mypost > div:nth-child(3) > ul > li > img {
+    width: 18px;
+}
+.mypost > div:nth-child(3) > ul > li:first-child {
+    width: 18px;
+}
+.mypost > div:last-child {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+}
+.content_mypost_wrap > div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.report_send {
+    color: #228be6;
+}
+.report_ing {
+    color: #f5ca00;
+}
+.report_err {
+    color: #c62828;
+}
+.report_finished {
+    color: #000;
+}

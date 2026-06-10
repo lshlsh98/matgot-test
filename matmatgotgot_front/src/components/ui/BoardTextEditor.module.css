@@ -1,0 +1,126 @@
+.editor_wrap {
+  border: 1px solid var(--gray5);
+  overflow: hidden;
+  background-color: var(--gray8);
+  border-radius: 8px;
+}
+
+.menu_bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px 8px;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.menu_bar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: #555;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu_bar button:hover {
+  background-color: #e7e7e7;
+  color: #222;
+}
+
+.menu_bar button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.menu_bar button:disabled:hover {
+  background-color: transparent;
+}
+
+.menu_bar button svg {
+  font-size: 17px;
+}
+
+.menu_bar button.active {
+  background-color: #dcdcdc;
+  color: #222;
+}
+
+.toolbar_divider {
+  width: 1px;
+  height: 18px;
+  background-color: #d0d0d0;
+  margin: 0 6px;
+}
+
+.placeholder {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  color: var(--gray4);
+  pointer-events: none;
+  user-select: none;
+  font-size: 14px;
+}
+
+.editor_content {
+  background-color: var(--gray8);
+}
+
+.editor_content :global(.ProseMirror) {
+  min-height: 400px;
+  padding: 14px 16px;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text1);
+  font-family: 'Noto Sans KR';
+}
+
+.editor_content :global(.ProseMirror > *:first-child) {
+  margin-top: 0;
+}
+
+.editor_content :global(.ProseMirror h1) {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin: 14px 0 6px;
+  line-height: 1.3;
+}
+
+.editor_content :global(.ProseMirror h2) {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 12px 0 4px;
+  line-height: 1.3;
+}
+
+.editor_content :global(.ProseMirror p) {
+  margin: 4px 0;
+}
+
+.editor_content :global(.ProseMirror ul),
+.editor_content :global(.ProseMirror ol) {
+  padding-left: 20px;
+  margin: 6px 0;
+  list-style: revert;
+}
+
+.editor_content :global(.ProseMirror img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  margin: 12px 0;
+}
+
+.editor_content :global(.ProseMirror strong) {
+  font-weight: 700;
+}

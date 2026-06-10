@@ -1,0 +1,117 @@
+.searchBoxPanel {
+  background: var(--header, var(--gray8));
+  border: 1px solid var(--gray6);
+  border-radius: 16px;
+  padding: 20px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  scrollbar-color: var(--gray6) transparent;
+  scrollbar-width: thin !important;
+}
+
+.searchStatusNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: var(--gray4);
+  line-height: 1.6;
+  padding: 40px 20px;
+  background-color: var(--bg);
+  border-radius: 12px;
+}
+
+.searchBar {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.searchBar input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid var(--gray4);
+  border-radius: 20px;
+  padding: 0 45px 0 20px;
+  font-size: 15px;
+  outline: none;
+  background-color: var(--gray8);
+  color: var(--text1);
+}
+
+.searchBar svg {
+  position: absolute;
+  right: 15px;
+  top: 11px;
+  color: var(--gray2);
+}
+
+.searchResultList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.searchResultList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.searchResultList::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--text1) 15%, transparent);
+  border-radius: 4px;
+}
+
+.searchResultItem {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--gray7);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.searchResultItem:hover {
+  background-color: var(--bg);
+}
+
+.resTitles {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.resTitleReal {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+}
+
+.resCategory {
+  color: var(--gray4);
+  font-size: 0.5em;
+}
+
+.resRating {
+  font-size: 0.8em;
+}
+
+.selectedRes {
+  background-color: var(--primary) !important;
+  color: var(--text1) !important;
+  font-weight: 600;
+}
+
+.selectedRes .resAddress {
+  color: var(--gray2);
+}
+
+.resName {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.resAddress {
+  font-size: 12px;
+  color: var(--gray3);
+  margin-top: 3px;
+}

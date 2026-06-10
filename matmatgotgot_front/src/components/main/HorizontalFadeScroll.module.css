@@ -1,0 +1,45 @@
+.fadeOverlayLeft,
+.fadeOverlayRight {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 45px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.fadeOverlayLeft {
+  left: 0;
+  background: linear-gradient(to left, transparent, var(--gray8));
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.fadeOverlayRight {
+  right: 0;
+  background: linear-gradient(to right, transparent, var(--gray8));
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.fadeOverlayLeft.hide,
+.fadeOverlayRight.hide {
+  opacity: 0;
+}
+
+.myListItems {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+  padding: 8px 4px;
+}
+
+.myListItems::-webkit-scrollbar {
+  display: none;
+}

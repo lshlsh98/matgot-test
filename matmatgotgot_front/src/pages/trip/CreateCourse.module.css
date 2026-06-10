@@ -1,0 +1,54 @@
+.pageWrapper {
+  width: 1160px;
+  margin: 20px auto;
+}
+
+.mainHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.mainHeader h2 {
+  font-size: 24px;
+  margin: 0;
+  color: var(--text1);
+}
+
+.editIcon {
+  color: var(--text1);
+}
+
+.gridDashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  height: 1030px;
+}
+
+.mapPlaceholderPanel {
+  background: var(--header, var(--gray8));
+  border: 1px solid var(--gray6);
+  border-radius: 16px;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.mapPlaceholderPanel h2 {
+  font-size: 48px;
+  color: var(--gray5);
+  font-weight: bold;
+  letter-spacing: 2px;
+}

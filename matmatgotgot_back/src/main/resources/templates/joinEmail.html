@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>맛맛곳곳 이메일 인증</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+    /* 전체 기본 폰트 지정 및 글꼴 깨짐 방지 패치 */
+    body, table, td, p, span {
+      font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', apple-system, sans-serif !important;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #faf8f5; -webkit-text-size-adjust: none; -ms-text-size-adjust: none;">
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #faf8f5; padding-top: 50px; padding-bottom: 70px;">
+  <tr>
+    <td align="center">
+
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="540" style="width: 540px; min-width: 540px;">
+
+        <tr>
+          <td align="center" style="padding-bottom: 35px; vertical-align: middle;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td style="vertical-align: middle; padding-right: 12px;">
+                  <img src="https://i.ibb.co/Tx7Zb2wT/300x398.png" alt="맛맛곳곳 로고" width="42" style="display: block; border: 0; width: 42px;" />
+                </td>
+                <td style="vertical-align: middle; font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: 38px; color: #2b1b17; letter-spacing: -1px; line-height: 1;">
+                  맛맛곳곳
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="center" style="background-color: #ffffff; border: 1px solid #e8e5e0; border-radius: 20px; padding: 50px 40px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+
+              <tr>
+                <td align="center" style="font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 17px; color: #111111; font-weight: 600; line-height: 1.7; padding-bottom: 30px; letter-spacing: -1px;">
+                  안녕하세요! 맛맛곳곳입니다.<br />아래 코드를 복사하여 이메일 인증을 완료하여주십시오.</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" style="padding-bottom: 35px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="220">
+                    <tr>
+                      <td align="center" height="58" style="border: 1.5px solid #2b1b17; border-radius: 12px; font-family: 'Malgun Gothic', '맑은 고딕', apple-system, sans-serif; font-weight: 800; font-size: 28px; color: #2b1b17; background-color: #ffffff; letter-spacing: 1px; text-align: center; vertical-align: middle;" th:text="${authCode}">
+                        ArdKJR
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" style="border-top: 1px solid #f2effa; padding-top: 25px; font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 13.5px; color: #666666; font-weight: 500; line-height: 1.5; letter-spacing: -1px;">
+                  본인이 요청한 이메일 인증이 아니라면, 이 이메일을 무시하셔도 됩니다.
+                </td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="center" style="font-family: 'Malgun Gothic', '맑은 고딕', apple-system, sans-serif; font-size: 12px; color: #888888; font-weight: 500; line-height: 1.7; padding-top: 30px; letter-spacing: -0.2px;">
+            <span style="color: #666666; font-weight: 600;">'맛맛곳곳'</span>은 KH정보교육원 종로 301반 파이널 프로젝트로,<br />
+            <span style="color: #666666; font-weight: 600;">팀 TWOTWO</span>에서 제작 및 배포했습니다.
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

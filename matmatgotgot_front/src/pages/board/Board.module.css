@@ -1,0 +1,170 @@
+.board_wrap {
+  width: 1200px;
+  margin: 50px auto;
+  padding: 50px;
+  border-radius: 12px;
+  background-color: var(--gray8);
+}
+
+.page_title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+/* =========================
+   게시글 작성 페이지용
+========================= */
+
+/* 카테고리 + 장소 선택 영역 */
+.category_wrap {
+  width: 800px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+}
+
+.select_wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* select 공통 */
+.select {
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text1);
+}
+
+/* 지도 아이콘 */
+.location_icon {
+  font-size: 30px;
+  color: var(--color1);
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.location_icon:hover {
+  transform: scale(1.1);
+}
+
+/* 선택된 장소명 */
+.selected_place_name {
+  font-size: 15px;
+  color: var(--color1);
+  font-weight: 700;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 작성 버튼 영역 */
+.btn_wrap {
+  width: 800px;
+  margin: 50px auto 0;
+}
+
+.btn_wrap > button {
+  width: 100% !important;
+  height: 50px !important;
+  font-size: 18px !important;
+  border-radius: 12px !important;
+}
+
+/* =========================
+   게시글 목록 페이지용
+========================= */
+
+/* 옵션 영역 */
+.list_option_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.left_option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.right_option {
+  display: flex;
+  align-items: center;
+}
+
+/* 검색 */
+.search_wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.search_wrap input {
+  width: 220px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+/* 글쓰기 버튼 */
+.write_btn_zone {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* 페이지네이션 */
+.board_list_pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 게시글 수정 */
+.readonly_place_box {
+  margin-top: 12px;
+  padding: 10px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.readonly_place_icon {
+  font-size: 28px;
+  color: var(--color2);
+}
+
+.readonly_place_text {
+  display: flex;
+  flex-direction: column;
+}
+
+.readonly_place_name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color2);
+}
+
+.readonly_place_address {
+  font-size: 13px;
+  color: var(--gray4);
+}

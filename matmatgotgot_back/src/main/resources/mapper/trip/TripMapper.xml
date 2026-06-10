@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twotwo.matmatgotgot.domain.trip.mapper.TripMapper">
+
+    <select id="findByChosung" resultType="restaurantDTO">
+        SELECT * FROM RESTAURANT_TBL
+        <where>
+            <choose>
+                <when test='"ㄱ".equals(keyword)'>
+                    rest_name &gt;= '가' AND rest_name &lt; '나'
+                </when>
+
+                <when test='"ㄴ".equals(keyword)'>
+                    rest_name &gt;= '나' AND rest_name &lt; '다'
+                </when>
+
+                <when test='"ㄷ".equals(keyword)'>
+                    rest_name &gt;= '다' AND rest_name &lt; '라'
+                </when>
+
+                <when test='"ㄹ".equals(keyword)'>
+                    rest_name &gt;= '라' AND rest_name &lt; '마'
+                </when>
+
+                <when test='"ㅁ".equals(keyword)'>
+                    rest_name &gt;= '마' AND rest_name &lt; '바'
+                </when>
+
+                <when test='"ㅂ".equals(keyword)'>
+                    rest_name &gt;= '바' AND rest_name &lt; '사'
+                </when>
+
+                <when test='"ㅅ".equals(keyword)'>
+                    rest_name &gt;= '사' AND rest_name &lt; '아'
+                </when>
+
+                <when test='"ㅇ".equals(keyword)'>
+                    rest_name &gt;= '아' AND rest_name &lt; '자'
+                </when>
+
+                <when test='"ㅈ".equals(keyword)'>
+                    rest_name &gt;= '자' AND rest_name &lt; '차'
+                </when>
+
+                <when test='"ㅊ".equals(keyword)'>
+                    rest_name &gt;= '차' AND rest_name &lt; '카'
+                </when>
+
+                <when test='"ㅋ".equals(keyword)'>
+                    rest_name &gt;= '카' AND rest_name &lt; '타'
+                </when>
+
+                <when test='"ㅌ".equals(keyword)'>
+                    rest_name &gt;= '타' AND rest_name &lt; '파'
+                </when>
+
+                <when test='"ㅍ".equals(keyword)'>
+                    rest_name &gt;= '파' AND rest_name &lt; '하'
+                </when>
+
+                <when test='"ㅎ".equals(keyword)'>
+                    rest_name &gt;= '하' AND rest_name &lt; '힣'
+                </when>
+
+                <otherwise>
+                    1 = 0
+                </otherwise>
+            </choose>
+        </where>
+        ORDER BY rest_name ASC
+    </select>
+
+    <select id="findByKeyword" resultType="restaurantDTO">
+        SELECT * FROM RESTAURANT_TBL
+        WHERE rest_name LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY
+            CASE
+                WHEN rest_name LIKE CONCAT(#{keyword}, '%') THEN 1
+                ELSE 2
+                END,
+            rest_name ASC
+    </select>
+
+    <select id="selectTags" resultType="map">
+        SELECT tag_no, tag_name
+        FROM TAG_TBL
+    </select>
+
+    <select id="selectMenus" resultType="menuDTO">
+        SELECT
+            MENU_NO,
+            REST_NO,
+            MENU_NAME AS name,
+            MENU_PRICE AS price,
+            CONCAT('http://localhost:9999/menu/', MENU_IMG) AS imagePreview
+        FROM MENU_TBL
+        WHERE REST_NO = #{restNo}
+    </select>
+
+    <insert id="insertMenu">
+        INSERT INTO MENU_TBL
+        (
+            REST_NO,
+            MENU_NAME,
+            MENU_PRICE,
+            MENU_IMG
+        )
+        VALUES
+            (
+                #{restNo},
+                #{menuName},
+                #{menuPrice},
+                #{menuImg}
+            )
+    </insert>
+
+    <insert id="insertTravelPlan" parameterType="map">
+        <selectKey keyProperty="tplan_no" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO TRAVEL_PLAN_TBL (
+        member_no, tplan_title, tplan_desc, tplan_region, tplan_days, tplan_total_price
+        ) VALUES (
+        #{memberNo}, #{tplanTitle}, #{tplanDesc}, #{tplanRegion}, #{tplanDays}, #{tplanTotalPrice}
+        )
+    </insert>
+
+    <insert id="insertPlanTag">
+        INSERT INTO PLAN_TAG_TBL (tplan_no, tag_no)
+        VALUES (#{tplanNo}, #{tagNo})
+    </insert>
+
+    <insert id="insertTravelSchedule" parameterType="map">
+        <selectKey keyProperty="tscheNo" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO TRAVEL_SCHEDULE_TBL (
+        tplan_no, tsche_day_no, tsche_order_no, rest_no
+        ) VALUES (
+        #{tplanNo}, #{tscheDayNo}, #{tscheOrderNo}, #{restNo}
+        )
+    </insert>
+
+    <insert id="insertRecommendMenu">
+        INSERT INTO RECOMMEND_MENU_TBL (tsche_no, menu_no)
+        VALUES (#{tscheNo}, #{menuNo})
+    </insert>
+
+    <insert id="createTripCourse">
+        INSERT INTO TRAVEL_ROUTE_TBL (from_tsche_no, to_tsche_no, transit_type)
+        VALUES (#{fromTscheNo}, #{toTscheNo}, #{transitType})
+    </insert>
+
+    <sql id="selectThumImg">
+        (SELECT CONCAT('http://localhost:9999/menu/', r.rest_thumb)
+         FROM TRAVEL_SCHEDULE_TBL s
+                  JOIN RESTAURANT_TBL r ON s.rest_no = r.rest_no
+         WHERE s.tplan_no = tp.tplan_no
+         ORDER BY s.tsche_day_no ASC, s.tsche_order_no ASC
+             LIMIT 1) AS imgName
+    </sql>
+
+    <select id="selectAllPlans" resultType="tripCourseResponse">
+        SELECT
+        tp.member_no AS memberNo,
+        tp.tplan_no AS tplanNo,
+        tp.tplan_title AS title,
+        tp.tplan_desc AS `desc`,
+        tp.tplan_days AS tplanDays,
+        tp.tplan_like AS tplanLike,
+        tp.tplan_view AS tplanView,
+        tp.tplan_region AS tplanRegion,
+        tp.tplan_total_price AS tplanTotalPrice,
+        tp.tplan_status AS tplanStatus,
+        tp.created_at AS createdAt,
+        GROUP_CONCAT(t.tag_name ORDER BY t.tag_no SEPARATOR ', ') AS tplanTags,
+        <include refid="selectThumImg"/>
+        FROM TRAVEL_PLAN_TBL tp
+        LEFT JOIN PLAN_TAG_TBL pt ON tp.tplan_no = pt.tplan_no
+        LEFT JOIN TAG_TBL t ON pt.tag_no = t.tag_no
+        WHERE tp.tplan_status = 1
+        GROUP BY tp.tplan_no
+        ORDER BY tp.created_at DESC
+    </select>
+
+    <select id="selectFavoritePlans" resultType="tripCourseResponse">
+        SELECT
+        tp.member_no AS memberNo,
+        tp.tplan_no AS tplanNo,
+        tp.tplan_title AS title,
+        tp.tplan_desc AS `desc`,
+        tp.tplan_days AS tplanDays,
+        tp.tplan_like AS tplanLike,
+        tp.tplan_view AS tplanView,
+        tp.tplan_region AS tplanRegion,          tp.tplan_total_price AS tplanTotalPrice,  tp.tplan_status AS tplanStatus,          tp.created_at AS createdAt,              <include refid="selectThumImg"/>
+        FROM FAVORITE_PLAN_TBL fp
+        JOIN TRAVEL_PLAN_TBL tp ON fp.tplan_no = tp.tplan_no
+        WHERE fp.member_no = #{memberNo}
+        AND tp.tplan_status = 1
+        ORDER BY fp.created_at DESC
+    </select>
+
+    <update id="updateViewCount">
+        UPDATE TRAVEL_PLAN_TBL SET tplan_view = tplan_view + 1 WHERE tplan_no = #{tplanNo}
+    </update>
+
+    <select id="selectTravelPlan" resultType="courseDetailResponse">
+        SELECT tplan_no as tplanNo, member_no as memberNo, tplan_title as title,
+               tplan_desc as `desc`, tplan_region as region, tplan_days as tplanDays,
+               tplan_total_price as tplanTotalPrice, tplan_view as tplanView, tplan_like as tplanLike
+        FROM TRAVEL_PLAN_TBL WHERE tplan_no = #{tplanNo}
+    </select>
+
+    <select id="selectPlanTags" resultType="string">
+        SELECT t.tag_name FROM PLAN_TAG_TBL pt
+                                   JOIN TAG_TBL t ON pt.tag_no = t.tag_no WHERE pt.tplan_no = #{tplanNo}
+    </select>
+
+    <select id="selectRawSchedulesWithDay" resultType="rawSchedule">
+        SELECT s.tsche_no as tscheNo, s.tsche_day_no as tscheDayNo, s.tsche_order_no as tscheOrderNo,
+               s.rest_no as restNo, r.rest_name as restName, r.lat, r.lng
+        FROM TRAVEL_SCHEDULE_TBL s
+                 JOIN RESTAURANT_TBL r ON s.rest_no = r.rest_no
+        WHERE s.tplan_no = #{tplanNo}
+        ORDER BY s.tsche_day_no ASC, s.tsche_order_no ASC
+    </select>
+
+    <select id="selectRecommendMenus" resultType="menuDTO">
+        SELECT m.MENU_NO as menuNo, m.MENU_NAME as name, m.MENU_PRICE as price, m.MENU_IMG as imagePreview
+        FROM RECOMMEND_MENU_TBL rm
+                 JOIN MENU_TBL m ON rm.menu_no = m.MENU_NO
+        WHERE rm.tsche_no = #{tscheNo}
+    </select>
+
+    <select id="selectTransitType" resultType="string">
+        SELECT transit_type FROM TRAVEL_ROUTE_TBL
+        WHERE from_tsche_no = #{fromNo} AND to_tsche_no = #{toNo}
+    </select>
+
+    <select id="checkFavorite" resultType="int">
+        SELECT COUNT(*)
+        FROM FAVORITE_PLAN_TBL
+        WHERE member_no = #{memberNo} AND tplan_no = #{tplanNo}
+    </select>
+
+    <insert id="insertFavorite">
+        INSERT INTO FAVORITE_PLAN_TBL (member_no, tplan_no)
+        VALUES (#{memberNo}, #{tplanNo})
+    </insert>
+
+    <delete id="deleteFavorite">
+        DELETE FROM FAVORITE_PLAN_TBL
+        WHERE member_no = #{memberNo} AND tplan_no = #{tplanNo}
+    </delete>
+
+    <update id="incrementFavoriteCount">
+        UPDATE TRAVEL_PLAN_TBL
+        SET tplan_like = tplan_like + 1
+        WHERE tplan_no = #{tplanNo}
+    </update>
+
+    <update id="decrementFavoriteCount">
+        UPDATE TRAVEL_PLAN_TBL
+        SET tplan_like = IF(tplan_like &gt; 0, tplan_like - 1, 0)
+        WHERE tplan_no = #{tplanNo}
+    </update>
+
+    <select id="selectFavoriteCount" resultType="int">
+        SELECT tplan_like
+        FROM TRAVEL_PLAN_TBL
+        WHERE tplan_no = #{tplanNo}
+    </select>
+
+    <update id="updateTravelPlan" parameterType="tripUpdateDTO">
+        UPDATE TRAVEL_PLAN_TBL
+        SET
+            tplan_title = #{tplanTitle},
+            tplan_desc = #{tplanDesc},
+            tplan_region = #{tplanRegion},
+            tplan_days = #{tplanDays},
+            tplan_total_price = #{tplanTotalPrice}
+        WHERE tplan_no = #{tplanNo}
+    </update>
+
+    <delete id="deletePlanTags">
+        DELETE FROM PLAN_TAG_TBL
+        WHERE tplan_no = #{tplanNo}
+    </delete>
+
+    <delete id="deleteTravelSchedules">
+        DELETE FROM TRAVEL_SCHEDULE_TBL
+        WHERE tplan_no = #{tplanNo}
+    </delete>
+
+    <select id="selectUnfinishedCoursesByMemberNo" parameterType="long" resultType="myUnfinishedCourseDTO">
+        SELECT
+            P.tplan_no AS tplanNo,
+            P.tplan_title AS tplanTitle,
+            P.tplan_days AS tplanDays,
+            P.tplan_total_price AS tplanTotalPrice,
+            P.tplan_view AS tplanView,
+            P.created_at AS createdAt,
+            (SELECT COUNT(*)
+             FROM TRAVEL_SCHEDULE_TBL S
+             WHERE S.tplan_no = P.tplan_no) AS restaurantCount
+        FROM
+            TRAVEL_PLAN_TBL P
+        WHERE
+            P.member_no = #{memberNo}
+        ORDER BY
+            P.created_at DESC
+            LIMIT 5
+    </select>
+
+    <select id="selectMemberNoByTplanNo" resultType="long">
+        SELECT member_no
+        FROM TRAVEL_PLAN_TBL
+        WHERE tplan_no = #{tplanNo}
+    </select>
+
+    <delete id="deleteTravelPlan">
+        DELETE FROM TRAVEL_PLAN_TBL
+        WHERE tplan_no = #{tplanNo}
+    </delete>
+</mapper>

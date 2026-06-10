@@ -1,0 +1,30 @@
+.input {
+  width: 100%;
+  min-height: 5px;
+  border: 1px solid var(--text1);
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+.input:focus {
+  border: 1px solid var(--primary);
+}
+
+.input:read-only,
+.input:disabled {
+  background-color: var(--gray7);
+}
+
+.textarea {
+  width: 100%;
+  font-size: 16px;
+  padding: 8px;
+  outline: none;
+  padding: 8px 4px;
+  border: 1px solid var(--gray5);
+  border-radius: 8px;
+  min-height: 300px;
+  resize: none;
+}
+.textarea:focus {
+  border: 1px solid var(--gray2);
+}

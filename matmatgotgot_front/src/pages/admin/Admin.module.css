@@ -1,0 +1,386 @@
+.admin_wrap {
+  width: 920px;
+  min-height: 560px;
+  margin: 60px auto 40px;
+  display: flex;
+  gap: 35px;
+}
+
+.admin_side {
+  width: 130px;
+  flex-shrink: 0;
+}
+
+.admin_side > h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.side_btn,
+.active_side_btn {
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #cfc8c2;
+  background-color: #fff;
+  font-size: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.active_side_btn {
+  background-color: #2d1d17;
+  color: #fff;
+  border-color: #2d1d17;
+  font-weight: 700;
+}
+
+.admin_content {
+  width: 700px;
+}
+
+.top_option_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
+
+.search_wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.search_wrap input {
+  width: 190px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.option_right {
+  display: flex;
+  gap: 6px;
+}
+
+.small_select {
+  height: 30px;
+  min-width: 85px;
+  border: 1px solid #cfc8c2;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+.member_list,
+.report_list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+  margin-top: 23px;
+}
+
+.member_card {
+  width: 100%;
+  min-height: 92px;
+  border: 1px solid #bfb8b1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.member_thumb {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 28px;
+}
+
+.member_thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member_info_grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 40px;
+}
+
+.info_item {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: #222;
+}
+
+.info_item b {
+  min-width: 58px;
+  font-weight: 800;
+}
+
+.info_item span {
+  word-break: break-all;
+}
+
+.report_tab_wrap {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 14px;
+  margin-top: 20px;
+}
+
+.tab,
+.active_tab {
+  min-width: 65px;
+  height: 28px;
+  border: 1px solid #ddd5ce;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.active_tab {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  font-weight: 700;
+}
+
+.report_card {
+  width: 100%;
+  min-height: 78px;
+  border: 1px solid #bfb8b1;
+  border-radius: 10px;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr 250px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.report_card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+.report_left {
+  padding: 14px 18px;
+  border-right: 1px solid #eee4dd;
+  min-width: 0;
+}
+
+.report_left strong {
+  font-size: 14px;
+  font-weight: 800;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.report_content_text {
+  width: 100%;
+  max-width: 230px;
+  height: 32px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #333;
+  line-height: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+.star_text {
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.report_middle {
+  padding: 14px 12px;
+  font-size: 12px;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.report_middle p {
+  margin-bottom: 6px;
+}
+
+.detail_text {
+  width: 100%;
+  max-width: 150px;
+  color: #777;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.report_right {
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.process_row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* 작성자 신고일 신고수 */
+.bottom_row {
+  display: grid;
+  grid-template-columns: 1fr 58px;
+  align-items: center;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.report_meta_group {
+  display: grid;
+  grid-template-columns: 100px 100px 75px 35px;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.report_reporter,
+.report_writer {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.report_date {
+  text-align: center;
+  font-size: 12px;
+  color: #222;
+}
+
+.report_date {
+  text-align: center;
+  font-size: 12px;
+  color: #222;
+}
+
+.report_count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: #2d1d17;
+  white-space: nowrap;
+}
+
+.report_count_icon {
+  font-size: 15px !important;
+  color: #2d1d17;
+}
+
+.status_badge {
+  min-width: 64px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 11px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.wait {
+  background-color: #fff3cd;
+  color: #8a6500;
+  border: 1px solid #f7d774;
+}
+
+.done {
+  background-color: #e5f6ea;
+  color: #247241;
+  border: 1px solid #9ed8ad;
+}
+
+.reject {
+  background-color: #eeeeee;
+  color: #555;
+  border: 1px solid #d1d1d1;
+}
+
+.process_select {
+  width: 58px;
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffd95a;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.reject_btn {
+  width: 58px;
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e5e1dc;
+  color: #333;
+  font-size: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.admin_pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin_search_input {
+  width: 190px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 12px !important;
+  box-sizing: border-box;
+
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 6px !important;
+
+  font-size: 14px !important;
+}
+
+.member_manage_select {
+  height: 26px;
+  min-width: 82px;
+  border: 1px solid #cfc8c2;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 0 6px;
+  cursor: pointer;
+}

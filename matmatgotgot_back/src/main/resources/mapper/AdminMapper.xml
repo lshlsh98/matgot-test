@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twotwo.matmatgotgot.domain.admin.mapper.AdminMapper">
+
+    <select id="selectMemberCount" parameterType="adminListItem" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER_TBL M
+        LEFT JOIN NATIVES_TBL N ON M.MEMBER_ID = N.MEMBER_ID
+        <where>
+            <if test="keyword != null and keyword != ''">
+                M.MEMBER_ID LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+
+            <if test="memberStatus != null and memberStatus != ''">
+                AND M.MEMBER_STATUS = #{memberStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectMemberList" parameterType="adminListItem" resultType="map">
+        SELECT
+        M.MEMBER_NO AS memberNo,
+        M.MEMBER_ID AS memberId,
+        M.MEMBER_NAME AS memberName,
+        M.MEMBER_EMAIL AS memberEmail,
+        M.MEMBER_NICKNAME AS memberNickname,
+        M.MEMBER_THUMB AS memberThumb,
+        M.MEMBER_STATUS AS memberStatus,
+        M.ADMIN AS admin,
+        DATE_FORMAT(M.ENROLL_DATE, '%Y-%m-%d') AS enrollDate,
+        N.REGION AS region
+        FROM MEMBER_TBL M
+        LEFT JOIN NATIVES_TBL N ON M.MEMBER_ID = N.MEMBER_ID
+        <where>
+            <if test="keyword != null and keyword != ''">
+                M.MEMBER_ID LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+
+            <if test="memberStatus != null and memberStatus != ''">
+                AND M.MEMBER_STATUS = #{memberStatus}
+            </if>
+        </where>
+
+        <choose>
+            <when test="nameOrder == 'desc'">
+                ORDER BY M.MEMBER_NAME DESC
+            </when>
+            <otherwise>
+                ORDER BY M.MEMBER_NAME ASC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <sql id="boardReportWhere">
+        <where>
+            <if test="category == 1">
+                B.BOARD_CATEGORY = 1
+            </if>
+
+            <if test="category == 2">
+                B.BOARD_CATEGORY = 2
+            </if>
+
+            <if test="reportStatus != null and reportStatus != ''">
+                AND BR.REPORT_STATUS = #{reportStatus}
+            </if>
+
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchType == 2">
+                        AND M.MEMBER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND B.BOARD_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectBoardReportCount" parameterType="adminListItem" resultType="int">
+        SELECT COUNT(*)
+        FROM BOARD_REPORT_TBL BR
+        JOIN BOARD_TBL B ON BR.BOARD_NO = B.BOARD_NO
+        JOIN MEMBER_TBL M ON BR.MEMBER_NO = M.MEMBER_NO
+        <include refid="boardReportWhere"/>
+    </select>
+
+    <select id="selectBoardReportList" parameterType="adminListItem" resultType="map">
+        SELECT
+        BR.BOARD_REPORT_NO AS reportNo,
+        BR.BOARD_NO AS contentNo,
+        BR.BOARD_NO AS boardNo,
+        B.BOARD_TITLE AS title,
+        LEFT(REGEXP_REPLACE(B.BOARD_CONTENT, '&lt;[^&gt;]*&gt;', ''), 70) AS content,
+        BR.REPORT_REASON AS reportReason,
+        BR.DETAIL AS detail,
+        BR.REPORT_STATUS AS reportStatus,
+        DATE_FORMAT(BR.REPORT_DATE, '%Y.%m.%d') AS reportDate,
+        R.MEMBER_ID AS reporter,
+        W.MEMBER_ID AS writer,
+        (
+        SELECT COUNT(*)
+        FROM BOARD_REPORT_TBL BR2
+        WHERE BR2.BOARD_NO = BR.BOARD_NO
+        ) AS reportCount
+        FROM BOARD_REPORT_TBL BR
+        JOIN BOARD_TBL B ON BR.BOARD_NO = B.BOARD_NO
+        JOIN MEMBER_TBL R ON BR.MEMBER_NO = R.MEMBER_NO
+        JOIN MEMBER_TBL W ON B.MEMBER_NO = W.MEMBER_NO
+        <include refid="boardReportWhere"/>
+
+        <choose>
+            <when test="order == 2">
+                ORDER BY reportCount DESC
+            </when>
+            <when test="order == 3">
+                ORDER BY BR.REPORT_DATE ASC
+            </when>
+            <otherwise>
+                ORDER BY BR.REPORT_DATE DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <sql id="boardCommentReportWhere">
+        <where>
+            <if test="category == 1">
+                B.BOARD_CATEGORY = 1
+            </if>
+
+            <if test="category == 2">
+                B.BOARD_CATEGORY = 2
+            </if>
+
+            <if test="reportStatus != null and reportStatus != ''">
+                AND BCR.REPORT_STATUS = #{reportStatus}
+            </if>
+
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchType == 2">
+                        AND W.MEMBER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND B.BOARD_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectBoardCommentReportCount" parameterType="adminListItem" resultType="int">
+        SELECT COUNT(*)
+        FROM BOARD_COMMENT_REPORT_TBL BCR
+        JOIN BOARD_COMMENT_TBL BC ON BCR.BOARD_COMMENT_NO = BC.BOARD_COMMENT_NO
+        JOIN BOARD_TBL B ON BC.BOARD_NO = B.BOARD_NO
+        JOIN MEMBER_TBL R ON BCR.MEMBER_NO = R.MEMBER_NO
+        JOIN MEMBER_TBL W ON BC.MEMBER_NO = W.MEMBER_NO
+        <include refid="boardCommentReportWhere"/>
+    </select>
+
+    <select id="selectBoardCommentReportList" parameterType="adminListItem" resultType="map">
+        SELECT
+        BCR.COMMENT_REPORT_NO AS reportNo,
+        BCR.BOARD_COMMENT_NO AS contentNo,
+        B.BOARD_NO AS boardNo,
+        B.BOARD_TITLE AS title,
+        LEFT(BC.BOARD_COMMENT_CONTENT, 70) AS content,
+        BCR.REPORT_REASON AS reportReason,
+        BCR.DETAIL AS detail,
+        BCR.REPORT_STATUS AS reportStatus,
+        DATE_FORMAT(BCR.REPORT_DATE, '%Y.%m.%d') AS reportDate,
+        R.MEMBER_ID AS reporter,
+        W.MEMBER_ID AS writer,
+        (
+        SELECT COUNT(*)
+        FROM BOARD_COMMENT_REPORT_TBL BCR2
+        WHERE BCR2.BOARD_COMMENT_NO = BCR.BOARD_COMMENT_NO
+        ) AS reportCount
+        FROM BOARD_COMMENT_REPORT_TBL BCR
+        JOIN BOARD_COMMENT_TBL BC ON BCR.BOARD_COMMENT_NO = BC.BOARD_COMMENT_NO
+        JOIN BOARD_TBL B ON BC.BOARD_NO = B.BOARD_NO
+        JOIN MEMBER_TBL R ON BCR.MEMBER_NO = R.MEMBER_NO
+        JOIN MEMBER_TBL W ON BC.MEMBER_NO = W.MEMBER_NO
+        <include refid="boardCommentReportWhere"/>
+
+        <choose>
+            <when test="order == 2">
+                ORDER BY reportCount DESC
+            </when>
+            <when test="order == 3">
+                ORDER BY BCR.REPORT_DATE ASC
+            </when>
+            <otherwise>
+                ORDER BY BCR.REPORT_DATE DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <sql id="restReportWhere">
+        <where>
+            <if test="reportStatus != null and reportStatus != ''">
+                RR.REPORT_STATUS = #{reportStatus}
+            </if>
+
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchType == 2">
+                        AND M.MEMBER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND R.REST_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectRestReportCount" parameterType="adminListItem" resultType="int">
+        SELECT COUNT(*)
+        FROM REST_REPORT_TBL RR
+        JOIN RESTAURANT_TBL R ON RR.REST_NO = R.REST_NO
+        JOIN MEMBER_TBL M ON RR.MEMBER_ID = M.MEMBER_ID
+        <include refid="restReportWhere"/>
+    </select>
+
+    <select id="selectRestReportList" parameterType="adminListItem" resultType="map">
+        SELECT
+        RR.REST_RP_NO AS reportNo,
+        RR.REST_NO AS contentNo,
+        R.REST_NAME AS title,
+        LEFT(R.REST_CONTENT, 70) AS content,
+        RR.REASON AS reportReason,
+        RR.DETAIL AS detail,
+        RR.REPORT_STATUS AS reportStatus,
+        DATE_FORMAT(RR.REPORT_DATE, '%Y.%m.%d') AS reportDate,
+        M.MEMBER_ID AS writer,
+        (
+        SELECT COUNT(*)
+        FROM REST_REPORT_TBL RR2
+        WHERE RR2.REST_NO = RR.REST_NO
+        ) AS reportCount
+        FROM REST_REPORT_TBL RR
+        JOIN RESTAURANT_TBL R ON RR.REST_NO = R.REST_NO
+        JOIN MEMBER_TBL M ON RR.MEMBER_ID = M.MEMBER_ID
+        <include refid="restReportWhere"/>
+
+        <choose>
+            <when test="order == 2">
+                ORDER BY reportCount DESC
+            </when>
+            <when test="order == 3">
+                ORDER BY RR.REPORT_DATE ASC
+            </when>
+            <otherwise>
+                ORDER BY RR.REPORT_DATE DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <sql id="reviewReportWhere">
+        <where>
+            <if test="reportStatus != null and reportStatus != ''">
+                RRP.REPORT_STATUS = #{reportStatus}
+            </if>
+
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchType == 2">
+                        AND M.MEMBER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND RT.REST_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectReviewReportCount" parameterType="adminListItem" resultType="int">
+        SELECT COUNT(*)
+        FROM REVIEW_REPORT_TBL RRP
+        JOIN REVIEW_TBL RV ON RRP.REVIEW_NO = RV.REVIEW_NO
+        JOIN RESTAURANT_TBL RT ON RV.REST_NO = RT.REST_NO
+        JOIN MEMBER_TBL M ON RRP.MEMBER_ID = M.MEMBER_ID
+        <include refid="reviewReportWhere"/>
+    </select>
+
+    <select id="selectReviewReportList" parameterType="adminListItem" resultType="map">
+        SELECT
+        RRP.REVIEW_RP_NO AS reportNo,
+        RRP.REVIEW_NO AS contentNo,
+        RRP.REVIEW_NO AS reviewNo,
+        RT.REST_NAME AS title,
+        LEFT(RV.REVIEW_CONTENT, 70) AS content,
+        RV.RATING AS rating,
+        RRP.REASON AS reportReason,
+        RRP.DETAIL AS detail,
+        RRP.REPORT_STATUS AS reportStatus,
+        DATE_FORMAT(RRP.CREATED_AT, '%Y.%m.%d') AS reportDate,
+        M.MEMBER_ID AS writer,
+        (
+        SELECT COUNT(*)
+        FROM REVIEW_REPORT_TBL RRP2
+        WHERE RRP2.REVIEW_NO = RRP.REVIEW_NO
+        ) AS reportCount
+        FROM REVIEW_REPORT_TBL RRP
+        JOIN REVIEW_TBL RV ON RRP.REVIEW_NO = RV.REVIEW_NO
+        JOIN RESTAURANT_TBL RT ON RV.REST_NO = RT.REST_NO
+        JOIN MEMBER_TBL M ON RRP.MEMBER_ID = M.MEMBER_ID
+        <include refid="reviewReportWhere"/>
+
+        <choose>
+            <when test="order == 2">
+                ORDER BY reportCount DESC
+            </when>
+            <when test="order == 3">
+                ORDER BY RRP.CREATED_AT ASC
+            </when>
+            <otherwise>
+                ORDER BY RRP.CREATED_AT DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <sql id="reviewCommentReportWhere">
+        <where>
+            <if test="reportStatus != null and reportStatus != ''">
+                RCR.REPORT_STATUS = #{reportStatus}
+            </if>
+
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchType == 2">
+                        AND M.MEMBER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND RT.REST_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectReviewCommentReportCount" parameterType="adminListItem" resultType="int">
+        SELECT COUNT(*)
+        FROM REVIEW_COMMENT_REPORT_TBL RCR
+        JOIN REVIEW_COMMENT_TBL RC ON RCR.COMMENT_NO = RC.COMMENT_NO
+        JOIN REVIEW_TBL RV ON RC.REVIEW_NO = RV.REVIEW_NO
+        JOIN RESTAURANT_TBL RT ON RV.REST_NO = RT.REST_NO
+        JOIN MEMBER_TBL M ON RCR.MEMBER_ID = M.MEMBER_ID
+        <include refid="reviewCommentReportWhere"/>
+    </select>
+
+    <select id="selectReviewCommentReportList" parameterType="adminListItem" resultType="map">
+        SELECT
+        RCR.REVIEW_COM_RP_NO AS reportNo,
+        RCR.COMMENT_NO AS contentNo,
+        RV.REVIEW_NO AS reviewNo,
+        RT.REST_NAME AS title,
+        LEFT(RC.CONTENT, 70) AS content,
+        RCR.REASON AS reportReason,
+        RCR.DETAIL AS detail,
+        RCR.REPORT_STATUS AS reportStatus,
+        DATE_FORMAT(RCR.CREATED_AT, '%Y.%m.%d') AS reportDate,
+        M.MEMBER_ID AS writer,
+        (
+        SELECT COUNT(*)
+        FROM REVIEW_COMMENT_REPORT_TBL RCR2
+        WHERE RCR2.COMMENT_NO = RCR.COMMENT_NO
+        ) AS reportCount
+        FROM REVIEW_COMMENT_REPORT_TBL RCR
+        JOIN REVIEW_COMMENT_TBL RC ON RCR.COMMENT_NO = RC.COMMENT_NO
+        JOIN REVIEW_TBL RV ON RC.REVIEW_NO = RV.REVIEW_NO
+        JOIN RESTAURANT_TBL RT ON RV.REST_NO = RT.REST_NO
+        JOIN MEMBER_TBL M ON RCR.MEMBER_ID = M.MEMBER_ID
+        <include refid="reviewCommentReportWhere"/>
+
+        <choose>
+            <when test="order == 2">
+                ORDER BY reportCount DESC
+            </when>
+            <when test="order == 3">
+                ORDER BY RCR.CREATED_AT ASC
+            </when>
+            <otherwise>
+                ORDER BY RCR.CREATED_AT DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <update id="updateBoardContentStatus">
+        UPDATE BOARD_TBL
+        SET BOARD_STATUS = #{status}
+        WHERE BOARD_NO = #{contentNo}
+    </update>
+
+    <update id="updateBoardCommentContentStatus">
+        UPDATE BOARD_COMMENT_TBL
+        SET BOARD_COMMENT_STATUS = #{status}
+        WHERE BOARD_COMMENT_NO = #{contentNo}
+    </update>
+
+    <update id="updateRestContentStatus">
+        UPDATE RESTAURANT_TBL
+        SET REST_STATUS = #{status}
+        WHERE REST_NO = #{contentNo}
+    </update>
+
+    <update id="updateReviewContentStatus">
+        UPDATE REVIEW_TBL
+        SET REVIEW_STATUS = #{status}
+        WHERE REVIEW_NO = #{contentNo}
+    </update>
+
+    <update id="updateReviewCommentContentStatus">
+        UPDATE REVIEW_COMMENT_TBL
+        SET COM_STATUS = #{status}
+        WHERE COMMENT_NO = #{contentNo}
+    </update>
+
+    <update id="updateBoardReportStatus">
+        UPDATE BOARD_REPORT_TBL
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE BOARD_REPORT_NO = #{reportNo}
+    </update>
+
+    <update id="updateBoardCommentReportStatus">
+        UPDATE BOARD_COMMENT_REPORT_TBL
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE COMMENT_REPORT_NO = #{reportNo}
+    </update>
+
+    <update id="updateRestReportStatus">
+        UPDATE REST_REPORT_TBL
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE REST_RP_NO = #{reportNo}
+    </update>
+
+    <update id="updateReviewReportStatus">
+        UPDATE REVIEW_REPORT_TBL
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE REVIEW_RP_NO = #{reportNo}
+    </update>
+
+    <update id="updateReviewCommentReportStatus">
+        UPDATE REVIEW_COMMENT_REPORT_TBL
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE REVIEW_COM_RP_NO = #{reportNo}
+    </update>
+
+    <update id="updateMemberStatus">
+        UPDATE MEMBER_TBL
+        SET MEMBER_STATUS = #{memberStatus}
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
+
+    <update id="updateMemberAdmin">
+        UPDATE MEMBER_TBL
+        SET ADMIN = #{admin}
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
+</mapper>

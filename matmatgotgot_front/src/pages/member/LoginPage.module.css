@@ -1,0 +1,114 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+}
+.login_wrap {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 400px;
+    min-height: 212px;
+    padding: 30px 40px;
+    background-color: var(--gray8);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.25);
+}
+.inputLabel {
+    display: flex;
+    justify-items: start;
+    margin: 2px 0;
+}
+.inputLabel>label {
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+}
+.idpw {
+    width: max-content;
+    text-align: right;
+    float: right;
+    font-size: 13px;
+    padding: 5px 8px;
+    color: var(--gray4);
+    cursor: pointer;
+}
+.submit {
+    margin: 20px 0;
+    width: 100%;
+    background-color: var(--text1);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+}
+.social_wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    gap: 3px;
+}
+.social{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.social>button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.25);
+    cursor: pointer;
+}
+.social>button>img {
+    width: 30px;
+}
+.social>button:nth-child(1){
+    background-color: var(--gray8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social>button:nth-child(2){
+    background-color: #FEE500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social>button:nth-child(3){
+    background-color: #03C75A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social>button:nth-child(3)>img{
+    width: 20px;
+}
+.horizon {
+    text-align: center;
+    margin: 10px 0;
+}
+.signup {
+    width: max-content;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    border-bottom: 1px solid var(--text1);
+}

@@ -1,0 +1,112 @@
+.report {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 360px;
+  padding: 32px 40px;
+  background-color: var(--gray8);
+  border: 1px solid var(--gray6);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text1);
+  text-align: center;
+}
+
+/* 사유 전체 컨테이너 — 행을 세로로 쌓음 */
+.reason_zone {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reason_line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reason_line input[type="radio"] {
+  display: none;
+}
+
+.reason_line label {
+  font-size: 14px;
+  color: var(--gray3); /* 미선택: 연한 회색 */
+  cursor: pointer;
+  user-select: none;
+  transition:
+    color 0.15s ease,
+    font-weight 0.15s ease;
+}
+
+.reason_line label:has(input:checked) {
+  color: #e53935;
+  font-weight: 600;
+}
+
+.textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px 12px;
+  border: 1px solid var(--gray5);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text1);
+  resize: none; /* 크기 조절 비활성화 */
+  outline: none;
+  background-color: var(--gray8);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.textarea::placeholder {
+  color: var(--gray4);
+}
+
+.textarea:focus {
+  border-color: var(--gray3);
+}
+
+.btn_zone {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn_cancel,
+.btn_submit {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.btn_cancel {
+  background-color: var(--gray7);
+  color: var(--gray2);
+}
+
+.btn_cancel:hover {
+  background-color: var(--gray6);
+}
+
+.btn_submit {
+  background-color: var(--gray6);
+  color: var(--text1);
+}
+
+.btn_submit:hover {
+  background-color: var(--gray5);
+}

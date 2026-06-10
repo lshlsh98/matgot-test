@@ -1,0 +1,309 @@
+.courseListPanel {
+  background: var(--header, var(--gray8));
+  border: 1px solid var(--gray6);
+  border-radius: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+}
+
+.dayTabContainer {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray6);
+  background-color: var(--header, var(--gray8));
+  flex-shrink: 0;
+}
+
+.dayTabButton {
+  padding: 8px 16px;
+  border: 1px solid var(--gray5);
+  border-radius: 20px;
+  background-color: var(--gray7);
+  color: var(--gray3);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.dayTabButton:hover {
+  border-color: var(--gray4);
+  color: var(--gray1);
+}
+
+.activeDayTab {
+  background-color: var(--text1, #000);
+  color: var(--bg, #fff);
+  border-color: var(--text1, #000);
+}
+
+.panelScrollAreaPadding {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px;
+}
+
+.panelScrollArea {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  scrollbar-color: var(--gray6) transparent;
+  scrollbar-width: thin !important;
+}
+
+.panelScrollArea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.panelScrollArea::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--text1) 15%, transparent);
+  border-radius: 4px;
+}
+
+.courseListPanel * {
+  box-sizing: border-box;
+}
+
+.emptyNotice {
+  text-align: center;
+  color: var(--gray4);
+  margin-top: 60px;
+  font-size: 14px;
+}
+
+.courseCard {
+  border: 1px solid var(--gray5);
+  border-radius: 12px;
+  padding: 15px;
+  background-color: var(--header, var(--gray8));
+  cursor: grab;
+}
+
+.courseCard:active {
+  cursor: grabbing;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.orderBadge {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: var(--text1);
+}
+
+.cardResName {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--gray1);
+}
+
+.deleteIcon {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  color: var(--gray3);
+}
+
+.menuSelectorBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--gray6);
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: var(--gray7);
+  color: var(--gray2);
+}
+
+.menuGridDropdown {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+  background-color: var(--bg);
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--gray6);
+}
+
+.menuPhotoCard {
+  background: var(--header, var(--gray8));
+  border: 1px solid var(--gray5);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menuPhotoCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--gray3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
+}
+
+.menuPhotoBox {
+  height: 95px;
+  background-color: var(--gray7);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px dashed var(--gray4);
+}
+
+.mName {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--gray1);
+}
+
+.mPrice {
+  font-size: 12px;
+  color: var(--gray3);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.activeMenu {
+  border: 2px solid var(--primary) !important;
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 8px 20px rgba(255, 217, 90, 0.4) !important;
+}
+
+.activeMenu .mName {
+  color: var(--text1) !important;
+}
+
+.activeMenu .mPrice {
+  color: var(--gray1) !important;
+}
+
+.addMenuTriggerCard {
+  border: 2px dashed var(--gray5);
+  border-radius: 8px;
+  background-color: var(--gray7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 110px;
+  color: var(--gray3);
+}
+
+.addMenuTriggerCard:hover {
+  background-color: var(--bg);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.addMenuIcon {
+  font-size: 28px !important;
+  margin-bottom: 6px;
+  color: var(--gray4);
+}
+
+.addMenuTriggerCard:hover .addMenuIcon {
+  color: var(--primary);
+}
+
+.menuThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.transitInfo {
+  display: flex;
+  align-items: center;
+  margin: 14px 0;
+  padding: 0 0 0 45px;
+  position: relative;
+}
+
+.dotsLine {
+  position: absolute;
+  left: 20px;
+  top: -12px;
+  bottom: -12px;
+  border-left: 2px dashed var(--gray5);
+}
+
+.transitText {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--gray3);
+}
+
+.transitBtnGroup {
+  display: flex;
+  gap: 6px;
+  background-color: #f1f3f5;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.transitBtn {
+  border: none;
+  background: none;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #868e96;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.transitBtn:hover {
+  color: #495057;
+}
+
+.activeTransit {
+  background-color: var(--gray8);
+  color: #228be6;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.durationText {
+  font-size: 14px;
+  color: #212529;
+  white-space: nowrap;
+}
+
+.courseItemWrap:last-child {
+  margin-bottom: 20px;
+}

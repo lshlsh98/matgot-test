@@ -1,0 +1,289 @@
+.recommand_filter {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* 전체 페이지를 1200px로 제한하고 가운데 정렬 */
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* RestaurantMain 슬라이더 영역 컨테이너 — 하단 구분선으로 분리 */
+.reccomand {
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--gray6);
+  padding-bottom: 8px;
+}
+
+/* ========== 전체 페이지 래퍼 ========== */
+.page_wrap {
+  display: flex;
+  padding: 20px 24px;
+  gap: 24px;
+  /* 헤더/푸터 높이에 맞게 조정 필요 */
+  min-height: calc(100vh - 120px);
+}
+
+/* ========== 좌측: 필터 사이드바 ========== */
+.filter_section {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: var(--gray8);
+  border: 1px solid var(--gray6);
+  border-radius: 8px;
+  padding: 10px 20px;
+  height: 100%;
+  margin-top: 60px;
+}
+
+/* 필터 대제목 */
+.filter_title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text1);
+}
+
+/* 각 섹션 소제목 (지역 / 카테고리 / 정렬) */
+.filter_label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text1);
+  margin-bottom: 8px;
+}
+
+/* ========== 지역 검색 입력창 ========== */
+.region {
+}
+
+.region input {
+  width: 100%;
+  /* 노란색 배경으로 강조 */
+  background-color: var(--gray7);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text1);
+  outline: none;
+}
+
+.region input::placeholder {
+  color: var(--gray3);
+}
+
+/* ========== 카테고리 체크박스 ========== */
+.category {
+}
+
+.ckbox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 실제 checkbox 숨김 — label이 버튼 역할 담당 */
+.ckbox input[type="checkbox"] {
+  display: none;
+}
+
+/* 기본 상태: 연한 회색 pill 버튼 */
+.ckbox label {
+  display: block;
+  background-color: var(--gray7);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text1);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+/* 체크된 상태: 노란색 배경 (:has 는 모던 브라우저 지원) */
+.ckbox label:has(input:checked) {
+  background-color: var(--primary);
+  font-weight: 600;
+}
+
+.ckbox label:hover:not(:has(input:checked)) {
+  background-color: var(--gray6);
+}
+
+/* ========== 정렬 라디오 버튼 ========== */
+.sort {
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 실제 radio 숨김 — label이 버튼 역할 담당 */
+.order input[type="radio"] {
+  display: none;
+}
+
+/* 기본 상태: 연한 회색 pill 버튼 */
+.order label {
+  display: block;
+  background-color: var(--gray7);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text1);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+/* 선택된 상태: 어두운 배경 + 흰 글씨 (이미지 디자인 반영 — 카테고리와 구분) */
+.order label:has(input:checked) {
+  background-color: var(--text1);
+  color: var(--gray8);
+  font-weight: 600;
+}
+
+.order label:hover:not(:has(input:checked)) {
+  background-color: var(--gray6);
+}
+
+/* ========== 필터 적용 버튼 ========== */
+/* margin-top: auto 로 사이드바 최하단에 자동 배치 */
+.filter_btn {
+}
+
+.filter_btn button {
+  width: 100%;
+  background-color: var(--text1);
+  color: var(--gray8);
+  border: none;
+  border-radius: 20px;
+  padding: 11px 0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  margin-top: 20px;
+}
+
+.filter_btn button:hover {
+  background-color: var(--footer);
+}
+
+/* ========== 우측: 목록 영역 ========== */
+.list_section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* min-width: 0 — flex 자식 요소 overflow 방지 */
+  min-width: 0;
+}
+
+/* 상단 검색 바 영역 — 목록 위 전체 너비 */
+.list_top {
+  display: flex;
+  margin-bottom: 16px;
+  margin-left: auto;
+}
+
+/* ========== 맛집 이름 검색 바 ========== */
+/* input + button을 하나의 capsule로 묶음
+   overflow: hidden 으로 자식 요소가 border-radius를 따라가도록 처리 */
+.search_bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1.5px solid var(--gray5);
+  border-radius: 24px;
+  background-color: var(--gray8);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+/* 포커스 시 테두리 강조 */
+.search_bar:focus-within {
+  border-color: var(--text1);
+}
+
+/* 텍스트 입력창 */
+.search_input {
+  flex: 1; /* 버튼을 제외한 나머지 공간 모두 차지 */
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text1);
+}
+
+.search_input::placeholder {
+  color: var(--gray4);
+}
+
+/* 검색 버튼 — 바의 오른쪽 끝에 붙임 */
+.search_btn {
+  flex-shrink: 0; /* 버튼 너비 고정 */
+  border: none;
+  border-left: 1.5px solid var(--gray5); /* input과 버튼 사이 구분선 */
+  background-color: var(--text1);
+  color: var(--gray8);
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.search_btn:hover {
+  background-color: var(--footer);
+}
+
+/* ========== 식당 카드 그리드 ========== */
+/* 4열 고정, 가로 공간에 맞게 카드 크기 자동 조정 */
+.rest_list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  flex: 1; /* 남은 세로 공간 채움 */
+}
+
+/* ========== 페이지네이션 ========== */
+.pagination {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* ========== 맛집 등록 버튼 (우하단 고정) ========== */
+.regist_btn {
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.regist_btn button {
+  background-color: var(--text1);
+  color: var(--gray8);
+  border: none;
+  border-radius: 20px;
+  padding: 11px 22px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.15s ease;
+}
+
+.regist_btn button:hover {
+  background-color: var(--footer);
+}

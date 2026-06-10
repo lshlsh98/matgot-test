@@ -1,0 +1,114 @@
+/* ════════════════════════════════════
+   탭 영역 (인기 맛집 / 찜한 맛집 / 근처 맛집)
+   ════════════════════════════════════ */
+.radio_zone {
+  padding: 20px 24px 0;
+}
+
+.tab {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 실제 radio 버튼 숨김 — label이 pill 버튼 역할을 대신 함 */
+.tab input[type="radio"] {
+  display: none;
+}
+
+/* 기본 pill 버튼 스타일 */
+.tab label {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--gray5);
+  background-color: var(--gray8);
+  color: var(--text1);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* 선택된 탭: 검정 배경 + 흰 글씨 */
+.tab label:has(input[type="radio"]:checked) {
+  background-color: var(--text1);
+  color: var(--gray8);
+  border-color: var(--text1);
+  font-weight: 700;
+}
+
+/* 호버 (미선택 상태에서만) */
+.tab label:hover:not(:has(input:checked)) {
+  background-color: var(--gray7);
+}
+
+/* 주소변경 버튼 — 탭 우측에 자동 배치 */
+.tab button {
+  margin-left: auto;
+  background-color: var(--footer);
+  color: var(--gray8);
+  border: none;
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tab button:hover {
+  background-color: var(--text1);
+}
+
+/* ════════════════════════════════════
+   슬라이드 섹션 (RestSlide 컨테이너)
+   ════════════════════════════════════ */
+.card_wrap {
+  background-color: var(--bg);
+  border-radius: 12px;
+  padding: 16px 24px; /* 좌우 24px — 1200px 컨테이너 내 여백 */
+  margin: 14px 0; /* 좌우 margin 제거 — 부모 max-width가 제어 */
+}
+
+/* 섹션 제목 (인기 맛집 / 찜한 맛집 / 근처 맛집) */
+.card_wrap > div:first-child {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text1);
+  margin-bottom: 12px;
+}
+
+/* RestSlide(Swiper) 래퍼 — 그리드 아님, 슬라이더가 내부 레이아웃을 처리 */
+.restaurant_card {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 전체 화면을 덮는 반투명 배경 */
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  /* flexbox로 모달을 정중앙에 배치 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 모달 박스 */
+.modal_content {
+  background: var(--gray8);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}

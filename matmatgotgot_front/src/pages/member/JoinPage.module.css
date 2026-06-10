@@ -1,0 +1,156 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+}
+.join_wrap {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 400px;
+    min-height: 212px;
+    padding: 30px 40px;
+    background-color: var(--gray8);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.25);
+}
+.inputLabel {
+    display: flex;
+    justify-items: start;
+    margin: 2px 0;
+}
+.inputLabel>label {
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+}
+.input_address {
+    display: flex;
+    flex-direction: column;
+}
+.input_address > div:last-child {
+    display: flex;
+    gap: 8px;
+}
+.input_address > div:last-child > input {
+    width: 70%;
+}
+.idcheckt, .pwcheckt, .check_msg{
+    font-size: 13px;
+    padding: 3px;
+}
+.idcheckf, .pwcheckf {
+    font-size: 13px;
+    padding: 3px;
+    color: #e82222;
+}
+.submit {
+    margin: 5px 0;
+    width: 100%;
+    background-color: var(--text1);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+}
+.submit_s {
+    width: 20%;
+    flex: 1;
+    background-color: var(--text1);
+    color: #fff;
+    border: none;
+    padding: 0 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    border-radius: 10px;
+}
+.horizon {
+    text-align: center;
+    margin: 10px 0;
+}
+.stipulation {
+    margin: 10px 0;
+}
+.stipulation > div:first-child {
+    letter-spacing: -1px;
+    font-weight: 600;
+    padding: 5px 0;
+}
+.stipulationbox {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid var(--text1);
+    padding: 10px;
+    overflow-y: auto; /* 가로는 막고 세로 스크롤만 활성화 */
+    font-size: 13px;
+    letter-spacing: -1px;
+
+    /* 스크롤바 숨기기 종합 세트 */
+    scrollbar-width: none; /* 파이어폭스 */
+    -ms-overflow-style: none; /* IE */
+}
+/* 크롬, 사파리, 엣지용 스크롤바 숨기기 */
+.stipulationbox::-webkit-scrollbar {
+    display: none;
+}
+
+.stipulationbox > p {
+    white-space: pre-wrap;
+    margin: 0; /* p태그 기본 마진 리셋 */
+}
+.stipulationcheck {
+    margin: 15px 0;
+    font-size: 14px;
+}
+.stipulationcheck > ul{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.stipulationcheck > ul > li {
+    display: flex;
+    gap: 5px;
+}
+.stipulationcheck > ul > li > button {
+    border: none;
+    outline: none;
+    background: none;
+    height: max-content;
+    cursor: pointer;
+    font-weight: 800;
+}
+.stipulationcheck > ul > ul{
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.stipulationcheck > ul > ul > li {
+    display: flex;
+    gap: 5px;
+}
+.stipulationcheck > ul > ul > li > button {
+    border: none;
+    outline: none;
+    background: none;
+    height: max-content;
+    cursor: pointer;
+    font-weight: 800;
+}
+.on > img {
+    opacity: 1;
+}
+.off > img  {
+    opacity: 0.35;
+}

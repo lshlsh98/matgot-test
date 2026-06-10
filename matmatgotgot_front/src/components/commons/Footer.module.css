@@ -1,0 +1,162 @@
+.footer {
+  position: relative;
+  z-index: 10000;
+  background-color: var(--footer, #1c1c1e);
+  color: var(--bg, #ffffff);
+  width: 100%;
+  min-height: 200px;
+  padding: 40px 0 20px 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.footerContainer {
+  width: 1160px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.footerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.infoSection {
+  flex: 1;
+  min-width: 280px;
+}
+
+.footerLogo {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+  color: var(--primary, #ffd95a);
+}
+
+.footerDesc {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.7;
+  margin: 0 0 16px 0;
+  max-width: 320px;
+}
+
+.snsIcons {
+  display: flex;
+  gap: 12px;
+}
+
+.snsLink {
+  color: var(--bg, #ffffff);
+  opacity: 0.6;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.snsLink:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.linksGrid {
+  display: flex;
+  gap: 60px;
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linkGroup h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: var(--bg, #ffffff);
+}
+
+.linkGroup a {
+  font-size: 13px;
+  color: var(--bg, #ffffff);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.linkGroup a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--bg, #ffffff);
+  opacity: 0.1;
+  margin-bottom: 20px;
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.companyInfo {
+  font-size: 12px;
+  opacity: 0.5;
+  line-height: 1.8;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+}
+
+.companyInfo span {
+  position: relative;
+}
+
+.companyInfo span:not(:last-child)::after {
+  content: "|";
+  position: absolute;
+  right: -8px;
+  opacity: 0.5;
+}
+
+.copyright {
+  font-size: 12px;
+  opacity: 0.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .footerTop {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .linksGrid {
+    gap: 30px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .footerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.activeLink {
+  opacity: 1 !important;
+  color: var(--primary, #ffd95a) !important;
+  font-weight: 700;
+  text-decoration: underline;
+}

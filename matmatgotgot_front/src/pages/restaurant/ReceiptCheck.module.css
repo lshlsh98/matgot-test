@@ -1,0 +1,451 @@
+/* ========== 페이지 래퍼 ========== */
+.receipt {
+  min-height: 100vh;
+  background-color: var(--bg);
+  padding: 32px 20px 60px;
+}
+
+/* 중앙 정렬 컨테이너 */
+.receipt_inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ========== 페이지 헤더 ========== */
+.receipt_header {
+  text-align: center;
+  padding-bottom: 4px;
+}
+
+.receipt_header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text1);
+  margin: 0 0 8px;
+}
+
+.receipt_header p {
+  font-size: 14px;
+  color: var(--gray3);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ========== 업로드 카드 ========== */
+.upload_card {
+  background-color: var(--gray8); /* 흰 카드 */
+  border: 1.5px solid var(--gray6);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* 자식 요소들이 각자 margin 관리 */
+}
+
+/* ========== 드롭존 ========== */
+.dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 180px;
+  border: 2px dashed var(--gray5);
+  border-radius: 10px;
+  background-color: var(--gray8);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.dropzone:hover {
+  border-color: var(--gray3);
+  background-color: var(--bg);
+}
+
+/* 드래그 오버 상태 — 노란 강조 */
+.dragOver {
+  border-color: var(--primary);
+  background-color: #fffde7; /* 매우 연한 노란색 */
+}
+
+/* 이미지가 있을 때 — 커서 기본값, 높이 자동 */
+.hasImage {
+  cursor: default;
+  min-height: auto;
+  border-style: solid;
+  border-color: var(--gray6);
+}
+
+.hasImage:hover {
+  border-color: var(--gray6);
+  background-color: var(--gray8);
+}
+
+/* 숨겨진 file input — 드롭존 클릭으로 대신 트리거 */
+.dropzone input[type="file"] {
+  display: none;
+}
+
+/* 업로드 안내 타이틀 */
+.dropzone_title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray2);
+  margin: 0;
+  text-align: center;
+}
+
+/* 업로드 안내 서브텍스트 */
+.dropzone_sub {
+  font-size: 12px;
+  color: var(--gray4);
+  margin: 0;
+}
+
+/* ========== 이미지 미리보기 ========== */
+.preview_wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.preview_image {
+  width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+/* 이미지 제거 버튼 (우상단 X) */
+.preview_remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--gray8);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  transition: background-color 0.12s ease;
+}
+
+.preview_remove:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* ========== OCR 분석 버튼 ========== */
+.btn_analyze {
+  width: 100%;
+  margin-top: 16px;
+  background-color: var(--text1);
+  color: var(--gray8);
+  border: none;
+  border-radius: 10px;
+  padding: 13px 0;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn_analyze:hover:not(:disabled) {
+  background-color: var(--footer);
+}
+
+/* 비활성 상태 (파일 없거나 분석 중) */
+.btn_analyze:disabled {
+  background-color: var(--gray5);
+  color: var(--gray4);
+  cursor: not-allowed;
+}
+
+/* ========== 로딩 스피너 ========== */
+.loading_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0 6px;
+}
+
+/* CSS 회전 애니메이션 스피너 */
+@keyframes receipt_spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--gray6);
+  border-top-color: var(--primary); /* 노란 회전 부분 */
+  border-radius: 50%;
+  animation: receipt_spin 0.8s linear infinite;
+}
+
+.loading_text {
+  font-size: 13px;
+  color: var(--gray4);
+  margin: 0;
+  text-align: center;
+}
+
+/* ========== 에러 박스 ========== */
+.error_box {
+  margin-top: 14px;
+  background-color: #fff4f4;
+  border: 1px solid #ffcdd2;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.error_text {
+  font-size: 13px;
+  color: #c62828;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ========== OCR 결과 카드 ========== */
+.result_card {
+  background-color: var(--gray8);
+  border: 1.5px solid var(--gray6);
+  border-radius: 14px;
+  overflow: hidden; /* 헤더 border-radius 클리핑 */
+}
+
+/* 결과 카드 헤더 */
+.result_header {
+  background-color: var(--bg); /* 크림 배경으로 카드 본문과 구분 */
+  border-bottom: 1.5px solid var(--gray6);
+  padding: 16px 20px;
+}
+
+.result_header_title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text1);
+}
+
+.result_header_sub {
+  font-size: 12px;
+  color: var(--gray3);
+  margin-top: 4px;
+}
+
+/* 결과 본문 */
+.result_body {
+  /* 각 result_row가 좌우 padding 직접 처리 */
+}
+
+/* ========== 결과 항목 행 ========== */
+.result_row {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--gray7);
+}
+
+.result_row:last-child {
+  border-bottom: none;
+}
+
+/* 라벨 + 값 그리드 (라벨 고정폭 70px, 값 나머지) */
+.result_row_content {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 0 16px;
+  align-items: flex-start;
+}
+
+/* 항목 라벨 (가게명 / 주소 / 날짜 / ...) */
+.result_label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray3);
+  padding-top: 2px; /* result_value 첫 줄과 수직 정렬 맞춤 */
+  white-space: nowrap;
+}
+
+/* 항목 값 */
+.result_value {
+  font-size: 14px;
+  color: var(--text1);
+  line-height: 1.6;
+}
+
+/* 합계 — 강조 표시 */
+.total_value {
+  font-weight: 700;
+}
+
+/* 인식 실패 텍스트 */
+.no_value {
+  font-size: 13px;
+  color: var(--gray4);
+  font-style: italic;
+}
+
+/* ========== 메뉴 목록 ========== */
+.menu_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 메뉴 항목 1행 (이름 + 가격) */
+.menu_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 12px;
+  background-color: var(--bg); /* 크림 배경 */
+  border: 1px solid var(--gray7);
+  border-radius: 6px;
+}
+
+.menu_item_name {
+  font-size: 14px;
+  color: var(--text1);
+}
+
+.menu_item_price {
+  font-size: 14px;
+  color: var(--text1);
+  font-weight: 500;
+  white-space: nowrap; /* 가격 줄바꿈 방지 */
+}
+
+/* ========== 지도 행 (result_row_map) ========== */
+/* 지도 행은 라벨과 지도를 세로로 배치 */
+.result_row_map .result_row_content {
+  grid-template-columns: 1fr; /* 1열 — 지도가 전체 너비 차지 */
+}
+
+.result_row_map .result_label {
+  margin-bottom: 12px;
+}
+
+/* ========== 네이버 지도 섹션 ========== */
+.api_content_wrap {
+  width: 100%;
+}
+
+/* 지도 소제목 */
+.map_title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text1);
+  margin: 0 0 10px;
+}
+
+/* 주소 검색 입력창 + 버튼 */
+.address_input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.address_input_field {
+  flex: 1;
+  height: 40px;
+  border: 1.5px solid var(--gray5);
+  border-radius: 8px;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text1);
+  background-color: var(--gray8);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.address_input_field:focus {
+  border-color: var(--gray3);
+}
+
+.address_input_field::placeholder {
+  color: var(--gray4);
+}
+
+/* 검색 버튼 */
+.search_button {
+  flex-shrink: 0;
+  height: 40px;
+  padding: 0 18px;
+  background-color: var(--text1);
+  color: var(--gray8);
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.search_button:hover {
+  background-color: var(--footer);
+}
+
+/* 지도 에러 메시지 */
+.map_error {
+  font-size: 12px;
+  color: #c62828;
+  margin: 0 0 8px;
+}
+
+/* 클릭한 좌표 표시 */
+.lat_lng {
+  font-size: 12px;
+  color: var(--gray3);
+  margin: 0 0 10px;
+}
+
+/* 지도 컨테이너 */
+.map_div {
+  width: 100%;
+  height: 400px;
+  border: 1.5px solid var(--gray6);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.addr_caution {
+  color: #d3a72f;
+}
+
+.confirmBtn_zone {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.confirmBtn_zone button {
+  margin-top: 10px;
+  padding: 8px 11px;
+  border: none;
+  background-color: var(--text1);
+  border-radius: 8px;
+  color: var(--gray8);
+  font-size: 600;
+}
+
+.confirmBtn_zone button:hover {
+  background-color: var(--footer);
+}

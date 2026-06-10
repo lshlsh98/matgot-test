@@ -1,0 +1,163 @@
+.review_top {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+/* ========== 리뷰 수 헤더 ========== */
+.review_count {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text1);
+  margin-bottom: 16px;
+}
+
+.btn_zone_reviews button {
+  background-color: var(--text1);
+  color: var(--gray8);
+  border: none;
+  border-radius: 24px;
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.15s ease;
+}
+
+.btn_zone_reviews button:hover {
+  background-color: var(--footer);
+}
+
+/* 리뷰 카드 그리드 (2열) */
+.review_wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+/* 리뷰 카드 1개 */
+.review_item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background-color: var(--gray8);
+  border-radius: 8px;
+  border: 1.5px solid var(--gray6);
+}
+
+.review_item:hover {
+  cursor: pointer;
+}
+
+/* 작성자 정보 행 */
+.review_writer {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* 프로필 이미지 컨테이너 — 원형 */
+.member_thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* 이미지 없을 때: 회색 원형 아바타 */
+.thumb_default {
+  background-color: var(--gray5);
+}
+
+/* 이미지 있을 때 */
+.thumb_exists img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 이름 + 뱃지 + 별점 묶음 */
+.writer_info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* 이름 + 현지인 뱃지 한 행 */
+.name_badge_row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 작성자 이름 */
+.member_name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text1);
+}
+
+/* 현지인 뱃지 */
+.member_badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--gray7);
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: var(--gray3);
+}
+
+.review_rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.rating_num {
+  font-size: 12px;
+  color: var(--gray3);
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+/* ── 리뷰 본문 ── */
+.review_content {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text1);
+}
+
+/* ── 날짜 + 메뉴 행 ── */
+.review_meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* 날짜 */
+.review_date {
+  font-size: 12px;
+  color: var(--gray4);
+}
+
+/* 메뉴 */
+.review_menu {
+  font-size: 12px;
+  color: var(--gray4);
+}
+
+.pagination_wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}

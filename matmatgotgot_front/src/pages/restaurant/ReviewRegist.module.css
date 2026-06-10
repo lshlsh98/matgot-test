@@ -1,0 +1,312 @@
+/* ========== 페이지 래퍼 ========== */
+.page_wrap {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== 페이지 제목 ========== */
+.page_title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text1);
+  margin-bottom: 24px;
+}
+
+/* ========== 2컬럼 메인 레이아웃 ========== */
+.regist_main {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* ── 왼쪽 폼 영역 ── */
+.main_left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── 오른쪽 사진 + 내용 영역 ── */
+.main_right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ========== 공통 필드 그룹 (라벨 + 인풋) ========== */
+.field_group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 필드 라벨 공통 */
+.field_label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text1);
+}
+
+/* ========== 텍스트 / 날짜 입력 ========== */
+/* main_left 내부 input 전체에 공통 스타일 적용 */
+.main_left input[type="text"],
+.main_left input[type="date"] {
+  width: 100%;
+  height: 40px;
+  background-color: var(--bg); /* 따뜻한 크림 배경 */
+  border: 1.5px solid var(--gray6);
+  border-radius: 8px;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text1);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.main_left input[type="text"]:focus,
+.main_left input[type="date"]:focus {
+  border-color: var(--gray4);
+}
+
+/* ========== 별점 ========== */
+/* 수정: 커스텀 .stars / .star / .star_filled → MUI Rating으로 교체되어 제거
+         색상 커스터마이징은 JSX의 Rating sx prop에서 처리 */
+.star_rating {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ========== 태그 선택 ========== */
+.tag_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 태그 pill 버튼 컨테이너 */
+.tag {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 실제 체크박스 숨김 */
+.tag input[type="checkbox"] {
+  display: none;
+}
+
+/* 태그 pill 기본 스타일 */
+.tag label {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background-color: var(--gray7);
+  font-size: 13px;
+  color: var(--text1);
+  cursor: pointer;
+  transition:
+    background-color 0.12s ease,
+    font-weight 0.12s ease;
+  user-select: none;
+}
+
+.tag label:hover {
+  background-color: var(--gray6);
+}
+
+/* 체크된 태그 — 노란색 강조 */
+.tag label:has(input:checked) {
+  background-color: var(--primary);
+  font-weight: 600;
+}
+
+.tag label:has(input:checked):hover {
+  background-color: #f5ca00; /* primary 보다 약간 어둡게 */
+}
+
+/* ========== 사진 등록 영역 ========== */
+
+/* 사진 없을 때: 클릭 가능한 업로드 박스 */
+.photo_placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border: 1.5px solid var(--gray6);
+  border-radius: 12px;
+  background-color: var(--bg);
+  font-size: 14px;
+  color: var(--gray4);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.photo_placeholder:hover {
+  background-color: var(--gray7);
+  border-color: var(--gray5);
+}
+
+/* 사진 있을 때: 미리보기 그리드 */
+.photo_preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  border: 1.5px solid var(--gray6);
+  border-radius: 12px;
+  background-color: var(--bg);
+  min-height: 120px;
+  align-content: flex-start;
+}
+
+/* 미리보기 이미지 1개 */
+.preview_item {
+  position: relative;
+  width: calc(33.333% - 4px);
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.preview_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 미리보기 삭제 버튼 (이미지 우상단) */
+.preview_delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  color: var(--gray8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.12s ease;
+}
+
+.preview_delete:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* 사진 추가 + 버튼 (미리보기 그리드 내) */
+.photo_add_more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(33.333% - 4px);
+  aspect-ratio: 1;
+  border: 1.5px dashed var(--gray5);
+  border-radius: 8px;
+  font-size: 28px;
+  color: var(--gray4);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color 0.12s ease,
+    color 0.12s ease;
+}
+
+.photo_add_more:hover {
+  border-color: var(--gray3);
+  color: var(--gray3);
+}
+
+/* ========== 리뷰 내용 textarea ========== */
+.review_textarea {
+  width: 100%;
+  min-height: 180px;
+  background-color: var(--bg);
+  border: 1.5px solid var(--gray6);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text1);
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  transition: border-color 0.15s ease;
+}
+
+.review_textarea:focus {
+  border-color: var(--gray4);
+}
+
+.review_textarea::placeholder {
+  color: var(--gray4);
+}
+
+/* ========== 등록 버튼 영역 ========== */
+.btn_zone {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+/* 리뷰 등록 버튼 — 어두운 와이드 pill */
+.regist_btn {
+  width: 100%;
+  background-color: var(--text1);
+  color: var(--gray8);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 0;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.regist_btn:hover {
+  background-color: var(--footer);
+}
+
+.menu_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 12px;
+  background-color: var(--bg); /* 크림 배경 */
+  border: 1px solid var(--gray6);
+  border-radius: 6px;
+}
+
+.menu_item_name {
+  font-size: 14px;
+  color: var(--text1);
+}
+
+.no_value {
+  font-size: 13px;
+  color: var(--gray4);
+  font-style: italic;
+}
