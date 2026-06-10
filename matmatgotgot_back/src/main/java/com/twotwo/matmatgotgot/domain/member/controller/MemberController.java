@@ -44,7 +44,7 @@ public class MemberController {
     private final MemberService memberService;
 	private final GoogleOAuthService googleOAuthService;
 	private final JwtTokenProvider jwtTokenProvider;
-	private final S3FileUtil s3fileUtil;
+	private final S3FileUtil fileUtil;
 
 	@Value("${file.root}")
 	private String root;
@@ -75,7 +75,7 @@ public class MemberController {
 	@PatchMapping(value="/{memberId}/thumbnail")
 	public ResponseEntity<?> updateThumbnail(@PathVariable String memberId, @ModelAttribute MultipartFile file) {
 		String savepath = root + "member/";
-		String memberThumb = s3fileUtil.upload(savepath, file);
+		String memberThumb = fileUtil.upload(savepath, file);
 		Member m = new Member();
 		m.setMemberThumb(memberThumb);
 		m.setMemberId(memberId);
