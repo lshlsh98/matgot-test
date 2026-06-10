@@ -6,6 +6,7 @@ import com.twotwo.matmatgotgot.domain.trip.dto.request.TripCreateRequestDTO;
 import com.twotwo.matmatgotgot.domain.trip.dto.request.TripUpdateDTO;
 import com.twotwo.matmatgotgot.domain.trip.dto.response.*;
 import com.twotwo.matmatgotgot.domain.trip.mapper.TripMapper;
+import com.twotwo.matmatgotgot.global.util.S3FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TripService {
     private final TripMapper tripMapper;
+    private final S3FileUtil s3FileUtil;
 
     @Value("${file.root}")
     private String uploadPath;
@@ -66,24 +68,7 @@ public class TripService {
 
         if (image != null && !image.isEmpty()) {
 
-            File dir = new File(uploadPath);
-
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            String originalName = image.getOriginalFilename();
-
-            String extension =
-                    originalName.substring(originalName.lastIndexOf("."));
-
-            savedFileName =
-                    UUID.randomUUID() + extension;
-
-            File targetFile =
-                    new File(uploadPath, savedFileName);
-
-            image.transferTo(targetFile);
+            savedFileName = s3FileUtil.upload("menu", image);
         }
 
         MenuInsertRequest request =
