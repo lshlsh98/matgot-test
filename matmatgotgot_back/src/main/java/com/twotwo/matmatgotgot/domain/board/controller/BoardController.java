@@ -5,8 +5,8 @@ import com.twotwo.matmatgotgot.domain.board.entity.BoardComment;
 import com.twotwo.matmatgotgot.domain.board.entity.ListItem;
 import com.twotwo.matmatgotgot.domain.board.entity.ListResponse;
 import com.twotwo.matmatgotgot.domain.board.service.BoardService;
-import com.twotwo.matmatgotgot.global.util.FileUtil;
 
+import com.twotwo.matmatgotgot.global.util.S3FileUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.jsoup.Jsoup;
@@ -29,7 +29,7 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService boardService;
-    private final FileUtil fileUtil;
+    private final S3FileUtil fileUtil;
 
     @Value("${file.root}")
     private String root;
@@ -70,13 +70,13 @@ public class BoardController {
             @ModelAttribute MultipartFile image
     ) {
         String savePath = root + "editor/";
-        File dir = new File(savePath);
+        File dir = new File("editor");
 
         if (!dir.exists()) {
             dir.mkdirs();
         }
 
-        String filePath = fileUtil.upload(savePath, image);
+        String filePath = fileUtil.upload("savePath", image);
         return ResponseEntity.ok(filePath);
     }
 
