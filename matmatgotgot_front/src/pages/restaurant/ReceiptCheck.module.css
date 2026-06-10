@@ -444,6 +444,8 @@
   border-radius: 8px;
   color: var(--gray8);
   font-size: 600;
+  width: 300px;
+  height: 200px;
 }
 
 .confirmBtn_zone button:hover {
